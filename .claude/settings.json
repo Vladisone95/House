@@ -1,0 +1,36 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'cd \"$CLAUDE_PROJECT_DIR\" && git add -A && git diff-index --quiet HEAD 2>/dev/null || git commit -m \"auto: project file update\"'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'cd \"$CLAUDE_PROJECT_DIR\" && git add -A && git diff-index --quiet HEAD 2>/dev/null || git commit -m \"checkpoint: end of session\"'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'cd \"$CLAUDE_PROJECT_DIR\" && echo \"=== House Project State ===\"; echo \"IFC files:\"; ls -la ifc/ 2>/dev/null || echo \"  (none yet)\"; echo \"Blend files:\"; ls -la blend/ 2>/dev/null || echo \"  (none yet)\"; echo \"Git status:\"; git status -s; echo \"Recent commits:\"; git log --oneline -5 2>/dev/null'"
+          }
+        ]
+      }
+    ]
+  }
+}

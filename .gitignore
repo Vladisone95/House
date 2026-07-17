@@ -1,0 +1,25 @@
+# Blender temp files
+*.blend1
+*.blend2
+__pycache__/
+*.pyc
+
+# Claude Code local files
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Render temp files
+renders/**/*.exr
+renders/**/*.tmp
+
+# Bonsai/IFC temp
+drawings/cache/
+*.h5
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Keep empty directories via .gitkeep
+!.gitkeep

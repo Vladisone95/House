@@ -1,0 +1,1759 @@
+# =============================================================================
+#  APARTMENT LAYOUT - SINGLE SOURCE OF TRUTH
+#  Vienna Parkside Residence, type C3 (apartments 129/145/161/177), 3 rooms.
+#
+#  Every 3D object in models/apartment.blend is GENERATED from this file.
+#  Edit here, then:  uv run apartment validate  &&  uv run apartment build
+#
+#  COORDINATES (metres, plan view, = Blender world X/Y):
+#    origin  = outer corner of facade B and the bottom neighbour wall
+#    +X      = along facade A (towards bedroom 1)
+#    +Y      = towards facade A
+#    Z = 0   = finished floor level
+#  Facade A (+Y side) faces WNW, facade B (-X side) faces SSW - see [site].
+#
+#  Provenance of every number: docs/decisions/0001-layout-reconstruction.md
+#  Status: "estimated" = derived from developer render + listed areas,
+#          "confirmed" = confirmed by the owner, "measured" = measured on site.
+# =============================================================================
+
+[project]
+name = "Vienna Parkside C3 - apartment 161"
+listed_usable_area = 85.99        # "Suprafata utila"
+listed_total_area = 92.75         # incl. balcony ("Suprafata utila totala")
+area_tolerance = 0.03             # validator: room area must be within 3 % of listing
+
+[site]
+city = "Bucharest, Sector 4 (Metalurgiei Park)"
+latitude = 44.365                 # approx. project location
+longitude = 26.124
+utc_offset_standard = 2.0         # EET; EU summer time (+1 h) is applied automatically
+# Compass bearing (deg, clockwise from true north) that the +Y axis points to.
+# Facade A's outward normal is +Y and faces WNW ~294 deg (owner confirmed 2026-10-04).
+plus_y_bearing = 294.0
+
+[levels]
+ceiling_height = 2.70             # clear height, finished floor -> ceiling (owner confirmed)
+slab_thickness = 0.25             # structural slab + screed above / below
+balcony_floor_z = -0.03
+balcony_above = true              # floor above has the same balcony (shades the living room)
+
+[wall_types]
+exterior  = { thickness = 0.45,  note = "30 cm AAC + 15 cm EPS (owner confirmed)" }
+party     = { thickness = 0.25,  note = "double partition to neighbour (owner confirmed)" }
+corridor  = { thickness = 0.25,  note = "wall to common corridor - assumed same as party" }
+partition = { thickness = 0.125, note = "interior partition (owner confirmed)" }
+
+[openings_defaults]
+window_sill = 0.90                # owner chose 'standard'
+window_head = 2.40
+door_head = 2.10
+frame_depth = 0.08
+frame_width = 0.06
+# Window frames sit at the AAC/EPS boundary, measured from the OUTER wall face.
+window_setback_from_outside = 0.15
+
+# -----------------------------------------------------------------------------
+#  WALLS - axis-aligned rectangles [x1, y1, x2, y2]; must not overlap.
+# -----------------------------------------------------------------------------
+[[walls]]
+id = "ext_facade_a"
+type = "exterior"
+rect = [0.000, 10.700, 10.815, 11.150]
+
+[[walls]]
+id = "ext_facade_b"
+type = "exterior"
+rect = [0.000, 0.250, 0.450, 6.750]
+note = "kitchen + bedroom-2 part of facade B (outermost line); its end is the kitchen-side wall of the half-recessed balcony"
+
+[[walls]]
+id = "ext_facade_b_living"
+type = "exterior"
+rect = [0.450, 6.370, 0.900, 10.700]
+note = "living part of facade B, set back one wall thickness (0.45): the balcony is half recessed (loggia) - developer plan 2026-10-06, ADR 0012"
+
+[[walls]]
+id = "party_right"
+type = "party"
+rect = [10.565, 3.930, 10.815, 10.700]
+
+[[walls]]
+id = "party_bottom"
+type = "party"
+rect = [0.000, 0.000, 7.200, 0.250]
+
+[[walls]]
+id = "corr_entrance"
+type = "corridor"
+rect = [7.200, 3.930, 10.565, 4.180]
+
+[[walls]]
+id = "corr_wing"
+type = "corridor"
+rect = [6.950, 0.250, 7.200, 4.180]
+
+[[walls]]
+id = "part_living_bed1"
+type = "partition"
+rect = [7.015, 6.065, 7.140, 10.700]
+
+[[walls]]
+id = "part_bed1_entry"
+type = "partition"
+rect = [7.140, 6.065, 8.715, 6.190]
+
+[[walls]]
+id = "part_bath1_hall"
+type = "partition"
+rect = [8.715, 4.180, 8.840, 6.975]
+
+[[walls]]
+id = "part_bed1_bath1"
+type = "partition"
+rect = [8.840, 6.850, 10.565, 6.975]
+
+[[walls]]
+id = "part_living_kitchen"
+type = "partition"
+rect = [0.450, 6.245, 5.070, 6.370]
+
+[[walls]]
+id = "part_kitchen_hall"
+type = "partition"
+rect = [4.945, 3.695, 5.070, 6.245]
+
+[[walls]]
+id = "part_kitchen_bed2"
+type = "partition"
+rect = [0.450, 3.570, 5.070, 3.695]
+
+[[walls]]
+id = "part_suite_top"
+type = "partition"
+rect = [5.070, 4.055, 6.950, 4.180]
+
+[[walls]]
+id = "part_bath2_top"
+type = "partition"
+rect = [4.150, 1.975, 6.950, 2.100]
+
+[[walls]]
+id = "part_bath2_left"
+type = "partition"
+rect = [4.150, 0.250, 4.275, 1.975]
+
+# -----------------------------------------------------------------------------
+#  OPENINGS - [from, to] is the absolute coordinate along the wall's long axis
+#  (X for horizontal walls, Y for vertical walls). kind: window | door | balcony_door
+# -----------------------------------------------------------------------------
+[[openings]]
+id = "W1_living"
+wall = "ext_facade_a"
+kind = "window"
+span = [4.820, 6.220]
+status = "estimated"
+note = "position read off the developer's dimensioned plan (docs/uploads/dimensiuni.jpeg)"
+
+[[openings]]
+id = "W2_bedroom1"
+wall = "ext_facade_a"
+kind = "window"
+span = [7.840, 9.340]
+status = "estimated"
+note = "position + width read off the developer's dimensioned plan"
+
+[[openings]]
+id = "BD_balcony"
+wall = "ext_facade_b_living"
+kind = "balcony_door"
+span = [7.050, 8.850]
+sill = 0.0
+head = 2.40
+status = "estimated"
+
+[[openings]]
+id = "W3_kitchen"
+wall = "ext_facade_b"
+kind = "window"
+span = [4.375, 5.375]
+status = "estimated"
+
+[[openings]]
+id = "W4_bedroom2"
+wall = "ext_facade_b"
+kind = "window"
+span = [1.270, 2.770]
+status = "estimated"
+
+[[openings]]
+id = "D_entrance"
+wall = "corr_entrance"
+kind = "door"
+hinge = "start"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "+"
+span = [7.450, 8.450]
+fixed = true       # owner 2026-10-04: the entrance is forced by the building (ADR 0006)
+status = "estimated"
+note = "position read off the developer's dimensioned plan"
+
+[[openings]]
+id = "D_kitchen"
+wall = "part_kitchen_hall"
+kind = "door"
+hinge = "end"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "-"
+span = [4.295, 5.095]
+status = "confirmed"
+note = "0.60 m from the kitchen's bottom wall (left hand when entering) - room for a 60 cm cabinet"
+
+[[openings]]
+id = "D_suite"
+wall = "part_suite_top"
+kind = "door"
+hinge = "end"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "-"
+span = [5.355, 6.155]
+status = "estimated"
+note = "position read off the developer's dimensioned plan"
+
+[[openings]]
+id = "D_bath2"
+wall = "part_bath2_top"
+kind = "door"
+hinge = "start"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "-"
+span = [4.975, 5.675]
+status = "estimated"
+note = "0.70 m from bath 2's bedroom-side wall so the leaf clears the 70 cm bathtub (owner 2026-10-04, ADR 0006)"
+
+[[openings]]
+id = "D_bedroom1"
+wall = "part_bed1_entry"
+kind = "door"
+hinge = "start"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "+"
+span = [7.310, 8.110]
+status = "estimated"
+note = "position read off the developer's dimensioned plan"
+
+[[openings]]
+id = "D_bath1"
+wall = "part_bath1_hall"
+kind = "door"
+hinge = "start"    # estimated: owner accepted proposal 2026-10-04 (ADR 0004)
+swing = "+"
+span = [5.195, 5.895]
+status = "estimated"
+note = "position read off the developer's dimensioned plan"
+
+# -----------------------------------------------------------------------------
+#  ROOMS - clear interior polygons (counter-clockwise), listed areas from the
+#  sales sheet. camera = eye point [x, y] and look-at point [x, y] (eye h. 1.60 m)
+#  Sizes fitted to the sales-sheet areas + the developer's dimensioned plan, whose printed sizes
+#  include ~one wall thickness (docs/uploads/dimensiuni.jpeg, ADR 0012).
+# -----------------------------------------------------------------------------
+[[rooms]]
+id = "living"
+name = "Living"
+name_ro = "Living"
+listed_area = 26.52
+finish = "wood"
+polygon = [[0.900, 6.370], [7.015, 6.370], [7.015, 10.700], [0.900, 10.700]]
+camera = { eye = [6.10, 6.65], look_at = [1.30, 10.30] }
+note = "6.115 x 4.33 clear (printed 6.25 x 4.40)"
+
+[[rooms]]
+id = "kitchen"
+name = "Kitchen"
+name_ro = "Bucatarie"
+listed_area = 11.46
+finish = "tiles"
+polygon = [[0.450, 3.695], [4.945, 3.695], [4.945, 6.245], [0.450, 6.245]]
+camera = { eye = [4.60, 4.65], look_at = [0.90, 5.95] }
+note = "4.495 x 2.55 clear (printed 4.57 x 2.63)"
+
+[[rooms]]
+id = "bedroom_1"
+slug = "bedroom-1"    # used in furniture ids (ADR 0005)
+name = "Bedroom 1"
+name_ro = "Dormitor 1"
+listed_area = 14.01
+finish = "wood"
+polygon = [[7.140, 6.190], [8.715, 6.190], [8.715, 6.975], [10.565, 6.975], [10.565, 10.700], [7.140, 10.700]]
+camera = { eye = [7.50, 6.55], look_at = [10.35, 10.40] }
+note = "3.425 x 4.51 clear minus the bath-1 corner (printed 3.45 x 4.57)"
+
+[[rooms]]
+id = "bath_1"
+slug = "bathroom-1"    # used in furniture ids (ADR 0005)
+name = "Bath 1"
+name_ro = "Baie 1"
+listed_area = 4.61
+finish = "tiles"
+polygon = [[8.840, 4.180], [10.565, 4.180], [10.565, 6.850], [8.840, 6.850]]
+camera = { eye = [9.05, 4.70], look_at = [10.40, 6.65] }    # moved 2026-10-04: clear of the raised wall cabinet
+note = "1.725 x 2.67 clear = printed 1.85 x 2.80 minus 12.5 cm each way (owner 2026-10-06)"
+
+[[rooms]]
+id = "hall"
+name = "Hall"
+name_ro = "Hol acces"
+listed_area = 7.47
+finish = "tiles"
+polygon = [[5.070, 4.180], [8.715, 4.180], [8.715, 6.065], [7.015, 6.065], [7.015, 6.370], [5.070, 6.370]]
+camera = { eye = [8.55, 5.80], look_at = [5.25, 6.20] }    # behind the half-open entrance door
+note = "3.645 x 1.885 clear (printed 3.73 x 2.02) + the strip in front of the kitchen wall; open towards the living room (no wall between hall and living)"
+
+[[rooms]]
+id = "bedroom_2"
+slug = "master-suite"    # used in furniture ids (ADR 0005)
+name = "Bedroom 2 + Dressing"
+name_ro = "Dormitor 2 + Dressing"
+listed_area = 17.31
+finish = "wood"
+polygon = [[0.450, 0.250], [4.150, 0.250], [4.150, 2.100], [6.950, 2.100], [6.950, 4.055], [5.070, 4.055], [5.070, 3.570], [0.450, 3.570]]
+camera = { eye = [6.00, 3.80], look_at = [0.80, 0.60] }
+note = "listed as Dormitor 13.53 + Dressing 3.78; open plan, only bath 2 is walled (owner confirmed). Bedroom part 3.70 x 3.32 clear (printed 3.80 x 3.30)"
+
+[[rooms]]
+id = "bath_2"
+slug = "master-bathroom"    # used in furniture ids (ADR 0005)
+name = "Bath 2"
+name_ro = "Baie 2"
+listed_area = 4.61
+finish = "tiles"
+polygon = [[4.275, 0.250], [6.950, 0.250], [6.950, 1.975], [4.275, 1.975]]
+camera = { eye = [5.20, 1.75], look_at = [6.75, 0.45] }
+note = "2.675 x 1.725 clear = printed 2.80 x 1.85 minus 12.5 cm each way (owner 2026-10-06)"
+
+# -----------------------------------------------------------------------------
+#  BALCONY - half recessed into facade B (loggia), alongside the living room (developer plan)
+# -----------------------------------------------------------------------------
+[balcony]
+id = "balcony"
+name = "Balcony"
+name_ro = "Balcon / Terasa"
+listed_area = 6.76
+finish = "outdoor_tiles"
+polygon = [[-1.265, 6.750], [0.450, 6.750], [0.450, 10.700], [-1.265, 10.700]]
+slab = [-1.265, 6.750, 0.450, 11.150]           # incl. side-wall footprint
+side_wall = [-1.265, 10.700, 0.000, 11.150]      # full-height privacy wall at the facade-A end
+railing_height = 1.00
+camera = { eye = [0.20, 6.95], look_at = [-1.05, 10.40] }
+note = "3.95 x 1.715 clear (printed 4.10 x 1.90)"
+
+# -----------------------------------------------------------------------------
+#  FIXED SERVICE POINTS - things the building forces: water + drains, WC stacks, the washing-
+#  machine connection, the cooker-hood vent (ADR 0006). Every furniture variant must put a piece
+#  of a `serves` type on the point (its footprint within `radius`), otherwise validate fails.
+#  Positions read from the developer render (docs/reference/developer_plan_C3.jpg) - to be
+#  checked on site. MSR = masina de spalat rufe (washing machine), MSV = masina de spalat vase.
+# -----------------------------------------------------------------------------
+[[fixed_points]]
+id = "FX_kitchen_sink"
+kind = "water"
+label = "SINK"
+room = "kitchen"
+position = [3.795, 6.133]
+serves = ["sink"]
+radius = 0.40
+status = "estimated"
+note = "kitchen water + drain: sink between the dishwasher (MSV) and the fridge in the developer render"
+
+[[fixed_points]]
+id = "FX_kitchen_hood"
+kind = "hood"
+label = "HOOD"
+room = "kitchen"
+position = [0.750, 6.083]
+serves = ["cooker-hood", "cooktop", "hob"]
+radius = 0.30
+status = "estimated"
+note = "cooker-hood vent; cooktop at the facade-B end of the kitchen run in the developer render"
+
+[[fixed_points]]
+id = "FX_bath1_washer"
+kind = "washer"
+label = "MSR"
+room = "bath_1"
+position = [9.140, 6.669]
+serves = ["washing-machine", "washer-dryer"]
+radius = 0.30
+status = "estimated"
+note = "washing-machine water + drain + socket (M.S.R. in the developer render), corner by bedroom 1"
+
+[[fixed_points]]
+id = "FX_bath1_shower"
+kind = "shower"
+label = "SHOWER"
+room = "bath_1"
+position = [9.965, 6.399]
+serves = ["shower", "bathtub"]
+radius = 0.40
+status = "estimated"
+note = "shower drain; walk-in shower between the MSR and the outer wall in the developer render"
+
+[[fixed_points]]
+id = "FX_bath1_sink"
+kind = "water"
+label = "SINK"
+room = "bath_1"
+position = [10.420, 5.330]
+serves = ["sink"]
+radius = 0.50
+status = "estimated"
+note = "double vessel sink on the party wall in the developer render"
+
+[[fixed_points]]
+id = "FX_bath1_wc"
+kind = "wc"
+label = "WC"
+room = "bath_1"
+position = [9.400, 4.330]
+serves = ["toilet"]
+radius = 0.20
+status = "confirmed"
+note = "owner 2026-10-04: WC on the wall towards the building corridor, facing the shower; owner 2026-10-06: placed as on the developer's 2D plan (docs/uploads/dimensiuni.jpeg), by the hall wall (ADR 0012)"
+
+[[fixed_points]]
+id = "FX_bath2_bath"
+kind = "shower"
+label = "BATH"
+room = "bath_2"
+position = [4.625, 1.100]
+serves = ["bathtub", "shower"]
+radius = 0.40
+status = "estimated"
+note = "bathtub drain; tub along the wardrobe wall in the developer render"
+
+[[fixed_points]]
+id = "FX_bath2_sink"
+kind = "water"
+label = "SINK"
+room = "bath_2"
+position = [5.900, 0.400]
+serves = ["sink"]
+radius = 0.40
+status = "estimated"
+note = "sink on the neighbour wall in the developer render"
+
+[[fixed_points]]
+id = "FX_bath2_wc"
+kind = "wc"
+label = "WC"
+room = "bath_2"
+position = [6.800, 1.515]
+serves = ["toilet"]
+radius = 0.20
+status = "confirmed"
+note = "wall-hung WC on the corridor wall, next to the dressing wall - as on the developer's 2D plan (owner 2026-10-06, ADR 0012)"
+
+# -----------------------------------------------------------------------------
+#  FLOOR FINISHES - rooms reference these by `finish`. Read off the developer render (ADR 0007):
+#  rustic oak parquet with knots, planks along facade A (x); speckled beige porcelain tiles 60 x 60
+#  in hall, kitchen and both bathrooms; light outdoor tiles on the balcony. Colours are sRGB.
+# -----------------------------------------------------------------------------
+[finishes.wood]
+kind = "parquet"
+size = [1.20, 0.19]          # plank length x width
+direction = "x"
+color = "#bf8650"
+color2 = "#a1693a"           # darker planks / knots
+joint_color = "#4a301c"
+joint = 0.0015
+roughness = 0.45
+note = "rustic oak, 19 cm planks along facade A (developer render)"
+
+[finishes.tiles]
+kind = "tiles"
+size = [0.60, 0.60]
+color = "#e2d2b8"
+color2 = "#b5a283"           # speckles (terrazzo-look porcelain)
+joint_color = "#cdbfa6"
+joint = 0.002
+roughness = 0.3
+note = "speckled beige porcelain 60 x 60 (developer render, hall / kitchen / baths)"
+
+[finishes.outdoor_tiles]
+kind = "tiles"
+size = [0.60, 0.60]
+color = "#d6ccba"
+color2 = "#aaa092"
+joint_color = "#9c9488"
+joint = 0.003
+roughness = 0.6
+note = "light outdoor porcelain 60 x 60 (balcony, developer render)"
+
+# Finishes that only variants use ([rooms.<id>] in a variant file, ADR 0009). Read off the owner's
+# reference photo docs/uploads/bathroom.jpg (warm spa bathroom).
+[finishes.oak_tiles]
+kind = "stone"
+size = [0.60, 0.60]
+color = "#a89886"            # warm taupe stone (owner 2026-10-04: match the bathroom aesthetic - was dark oak #6e4e38)
+color2 = "#8f7f6d"           # soft darker clouding
+joint_color = "#7d6f60"
+joint = 0.003
+roughness = 0.35
+note = "square porcelain tiles 60 x 60 in dark oak colour - owner 2026-10-04: the wood-look planks read as hardwood, wants real tiles; 1.80 m bath width = exactly 3 tiles"
+
+[finishes.greige_stone]
+kind = "stone"
+size = [0.60, 1.20]          # 60 x 120 large format, laid vertically (width x height on a wall; x x y on a ceiling)
+color = "#c4b6a4"
+color2 = "#9a8a77"           # soft veining / clouding
+joint_color = "#9c8f7e"      # grout a shade darker so the big format reads
+joint = 0.002
+roughness = 0.35
+note = "greige stone-look porcelain 60 x 120, vertical; 1.80 m bath walls = exactly 3 tiles, height 2 tiles + 30 cm row at the ceiling; ceiling too (owner 2026-10-04, ADR 0009)"
+
+# -----------------------------------------------------------------------------
+#  BUILT-INS - equipment the apartment already has. Built in EVERY variant (they are not
+#  furniture: no variant may move or remove them; furniture running into one is a warning).
+#  Same fields as a furniture piece: size = [width, depth, height], position = footprint centre.
+# -----------------------------------------------------------------------------
+[[built_ins]]
+id = "BI_bath1_boiler"
+type = "boiler"
+room = "bath_1"
+label = "Boiler 180 L"
+size = [0.56, 0.56, 1.60]
+position = [9.140, 6.550]    # straight above the washing machine (MSR point), against the wall
+elevation = 1.05             # 20 cm above the 85 cm washer -> top 2.65, 5 cm under the ceiling
+color = "#f1f1ef"
+status = "confirmed"
+note = "owner 2026-10-04: existing 180 L electric boiler, big oval tank above the washer, up to the ceiling; diameter 56 cm estimated - measure on site"
+
+[finishes.calacatta_gold]
+kind = "marble"
+size = [1.20, 0.60]          # 60 x 120 like the baths, laid horizontally as in the owner's photo (wall: width x height)
+color = "#f5f3ef"            # clean white base (owner 2026-10-04: more white, less brown)
+color2 = "#d2bd96"           # paler, softer gold veins
+joint_color = "#d6d0c4"
+joint = 0.002
+roughness = 0.18             # satin polish
+note = "Calacatta-gold-look porcelain 60 x 120: white with thin diagonal gold-brown veins, faint grey hairlines, beige clouding (owner photo docs/uploads/gresie.jpg, 2026-10-04)"
+
+[finishes.walnut]
+kind = "parquet"
+size = [1.20, 0.19]
+direction = "x"
+color = "#76533b"            # medium walnut brown (owner 2026-10-04: a little lighter - was #5e3e28)
+color2 = "#62442f"           # darker planks
+joint_color = "#2b1b11"
+joint = 0.0015
+roughness = 0.42
+note = "walnut-brown planks 120 x 19, same layout as the oak (owner 2026-10-04: bedrooms + living in V1)"
+
+[[built_ins]]
+id = "BI_entrance_door"
+type = "entrance-door"
+room = "hall"
+label = "Entrance door (metallic brown), closed"
+size = [0.96, 0.06, 2.08]
+position = [7.950, 4.215]    # closed in D_entrance (span 7.45-8.45), against the hall face y = 4.18 (owner 2026-10-04; moved 2026-10-06, ADR 0012)
+rotation = 0
+elevation = 0.01
+color = "#5b4030"
+status = "estimated"
+note = "owner 2026-10-04: something resembling a metallic brown entrance door, left half open, then closed completely (owner 2026-10-04); look to be confirmed against the real door"
+
+# -----------------------------------------------------------------------------
+#  BUILDING - simple gray context block around the apartment (ADR 0010). Owner 2026-10-04: floor 6
+#  counted the Romanian way (etaj 6 = parter + 5 floors below), 2 floors above (P+8); lawn 30 m around.
+#  How far the block continues past the party / corridor walls is not known (estimated 10 m).
+# -----------------------------------------------------------------------------
+[building]
+storeys_below = 6            # x 2.95 m storey (2.70 clear + 0.25 slab) -> street 17.70 m below this floor
+floors_above = 2
+party_extension = 10.0       # estimated
+grass_margin = 30.0
+trees = 18                   # owner 2026-10-04: some trees in the grass (deterministic scatter, >= 6 m off the facades)
+status = "confirmed"
+note = "storeys and grass from the owner; party extension estimated"
+
+[finishes.deck]
+kind = "parquet"
+size = [1.20, 0.14]
+direction = "y"
+color = "#4a3222"            # dark brown deck boards
+color2 = "#3a2719"
+joint_color = "#1b120c"
+joint = 0.006                # open deck gaps
+roughness = 0.6
+note = "dark brown composite / hardwood deck, boards along the balcony (owner 2026-10-04)"
+
+[finishes.nero_marquina]
+kind = "marble"
+size = [1.20, 0.60]          # one horizontal row on the backsplash
+color = "#1c1c1e"            # black
+color2 = "#d9d6cf"           # fine white veins
+joint_color = "#2a2a2c"
+joint = 0.0015
+roughness = 0.2
+note = "black dark-marble-look porcelain 120 x 60, kitchen backsplash (owner 2026-10-04)"
+
+# Where Blender's 3D view opens after a build / refresh: standing just inside the closed entrance door
+# (eye 1.60 m), looking along the hallway (owner 2026-10-04).
+[start_view]
+eye = [7.95, 4.40]
+look_at = [8.15, 6.60]
+variant = "V1"               # the owner's design is what opens
+
+[finishes.suave_mural]
+kind = "mural"
+size = [3.80, 2.65]          # one continuous mural (no repeat seams)
+color = "#efe6d8"            # cream
+color2 = "#c9a57e"           # sand / caramel waves
+joint_color = "#efe6d8"
+joint = 0.0
+roughness = 0.75
+note = "wallpaper mural 'Suave' (Mourals MOD016): flowing diagonal agate-like waves, cream / sand / caramel - docs/uploads/wallpaper_suave.jpg"
+
+[finishes.delicate_blues]
+kind = "watercolor"
+size = [3.10, 2.70]          # one continuous mural
+color = "#ede6dc"            # cream clouds
+color2 = "#7fa3ad"           # dusty blue-teal sky
+joint_color = "#ede6dc"
+joint = 0.0
+roughness = 0.8
+note = "wallpaper mural 'Delicate Blues' (Mourals, Tactile collection): watercolour sky, blue-teal / cream / blush - docs/uploads/wallpaper_delicate_blues.jpg"
+
+[finishes.madera]
+kind = "chevron"
+size = [3.04, 2.70]          # one continuous mural
+color = "#a8865f"            # warm oak
+color2 = "#8f6f4c"           # grain
+joint_color = "#3a2a1c"      # grooves + panel seams
+joint = 0.0
+roughness = 0.7
+note = "wallpaper mural 'Madera' (Mourals): oak wood-look panels, chevron groups of fine grooves - docs/uploads/wallpaper_madera.jpg"
+
+[finishes.cream_marble]
+kind = "marble"
+size = [1.80, 0.60]          # large slabs - almost seamless
+color = "#efe6d6"            # warm ivory / cream
+color2 = "#b9aa98"           # soft taupe-grey veins
+joint_color = "#e6dccb"
+joint = 0.001
+roughness = 0.18             # polished
+note = "warm cream marble backsplash with fine taupe veins (owner photo docs/uploads/backsplash.jpg, 2026-10-04)"
+
+[finishes.ripple]
+kind = "ripple"
+size = [3.04, 2.70]          # one continuous mural
+color = "#ece6dc"            # warm off-white ridges
+color2 = "#d6ccbd"           # greige troughs
+joint_color = "#ece6dc"
+joint = 0.0
+roughness = 0.85
+note = "wallpaper mural 'Ripple' (Mourals TAC037): sculpted sand-dune ripples, monochrome warm white - docs/uploads/wallpaper_ripple.jpg"
+
+[finishes.light_oak]
+kind = "parquet"
+size = [1.20, 0.19]
+direction = "x"
+color = "#cfb08a"            # light natural oak
+color2 = "#bd9c74"           # slightly deeper planks
+joint_color = "#7d5f40"
+joint = 0.0015
+roughness = 0.45
+note = "light-oak planks 120 x 19 (owner 2026-10-04: kids' room only in V1)"
+
+# -----------------------------------------------------------------------------
+#  COLOUR-SCHEME VARIANTS V2 / V3 (2026-10-04, ADR 0011) - same layout as V1, new surfaces.
+#  Sources: 2026 colour trends (warm neutrals, sage / smoky jade, espresso, terracotta, deep teal,
+#  cream terrazzo + zellige, tile drenching). Colours are sRGB.
+# -----------------------------------------------------------------------------
+[finishes.cream_terrazzo]
+kind = "tiles"
+size = [0.60, 0.60]
+color = "#ece5d8"            # warm cream ground
+color2 = "#9fae8f"           # sage + clay chips
+joint_color = "#ddd5c6"
+joint = 0.002
+roughness = 0.4
+note = "V2: cream terrazzo-look porcelain 60 x 60 with sage chips (2026 'soft terrazzo' trend)"
+
+[finishes.sage_zellige]
+kind = "stone"
+size = [0.15, 0.15]          # small handmade-look square, glaze clouding per tile
+color = "#a7b39b"
+color2 = "#8b9b80"
+joint_color = "#e4e0d4"      # light grout
+joint = 0.002
+roughness = 0.15             # glossy glaze
+note = "V2: sage-green zellige-look 15 x 15 (bath 1 walls, kitchen backsplash)"
+
+[finishes.cloud_stone]
+kind = "stone"
+size = [0.60, 1.20]
+color = "#ece8df"            # Cloud Dancer-like warm white
+color2 = "#d6cfc1"
+joint_color = "#d9d3c7"
+joint = 0.002
+roughness = 0.3
+note = "V2: warm-white stone-look 60 x 120 vertical (bath 2 walls)"
+
+[finishes.pale_ash]
+kind = "parquet"
+size = [1.20, 0.19]
+direction = "x"
+color = "#dcc8a8"            # pale Nordic ash / white oak
+color2 = "#ccb592"
+joint_color = "#8c7558"
+joint = 0.0015
+roughness = 0.45
+note = "V2: pale ash planks (living, bedrooms)"
+
+[finishes.ripple_sage]
+kind = "ripple"
+size = [3.04, 2.70]
+color = "#e7eadf"            # pale sage-white ridges
+color2 = "#c6cfbb"           # sage troughs
+joint_color = "#e7eadf"
+joint = 0.0
+roughness = 0.85
+note = "V2: 'Ripple' wallpaper recoloured sage (living sofa wall)"
+
+[finishes.ripple_forest]
+kind = "ripple"
+size = [3.04, 2.70]
+color = "#5d6c56"            # deep earthy green ridges
+color2 = "#45523f"
+joint_color = "#5d6c56"
+joint = 0.0
+roughness = 0.85
+note = "V2: deep forest-green ripple wallpaper behind the master bed (2026: muted rose walls + deep green headboard wall)"
+
+[finishes.meadow_watercolor]
+kind = "watercolor"
+size = [3.10, 2.70]
+color = "#f2ecdc"            # butter-cream clouds
+color2 = "#a9b98f"           # soft sage washes
+joint_color = "#f2ecdc"
+joint = 0.0
+roughness = 0.9
+note = "V2: painted meadow mural on the kids' bed wall"
+
+[finishes.terracotta_tiles]
+kind = "stone"
+size = [0.30, 0.30]
+color = "#b8693f"            # fired clay
+color2 = "#9c5533"
+joint_color = "#d8c7b2"
+joint = 0.003
+roughness = 0.6
+note = "V3: terracotta 30 x 30 (hall, kitchen, bath 2 floor, balcony)"
+
+[finishes.teal_zellige]
+kind = "stone"
+size = [0.15, 0.15]
+color = "#2f5f62"            # deep teal glaze
+color2 = "#234a4d"
+joint_color = "#cfc6b5"
+joint = 0.002
+roughness = 0.12
+note = "V3: deep-teal zellige-look 15 x 15 (bath 1 walls)"
+
+[finishes.travertine]
+kind = "stone"
+size = [0.60, 1.20]
+color = "#dacab0"            # honed warm travertine
+color2 = "#bfa883"
+joint_color = "#c8b796"
+joint = 0.002
+roughness = 0.4
+note = "V3: travertine-look 60 x 120 (bath 1 floor, bath 2 walls + tub apron)"
+
+[finishes.clay_zellige]
+kind = "stone"
+size = [0.15, 0.15]
+color = "#c47b57"            # glazed terracotta
+color2 = "#a9603f"
+joint_color = "#e6d9c7"
+joint = 0.002
+roughness = 0.15
+note = "V3: terracotta zellige-look backsplash"
+
+[finishes.smoked_oak]
+kind = "parquet"
+size = [1.20, 0.19]
+direction = "x"
+color = "#6a5646"            # smoked / fumed oak, grey-brown (not red like walnut)
+color2 = "#574535"
+joint_color = "#271d15"
+joint = 0.0015
+roughness = 0.45
+note = "V3: smoked oak planks (living, master suite)"
+
+[finishes.honey_oak]
+kind = "parquet"
+size = [1.20, 0.19]
+direction = "x"
+color = "#c99a64"            # honey oak
+color2 = "#b48552"
+joint_color = "#6e4e30"
+joint = 0.0015
+roughness = 0.45
+note = "V3: honey oak planks (kids' room)"
+
+[finishes.ripple_clay]
+kind = "ripple"
+size = [3.04, 2.70]
+color = "#e9d7c3"            # sand ridges
+color2 = "#c99a7b"           # terracotta troughs
+joint_color = "#e9d7c3"
+joint = 0.0
+roughness = 0.85
+note = "V3: 'Ripple' wallpaper in sand / terracotta (living sofa wall)"
+
+[finishes.espresso_chevron]
+kind = "chevron"
+size = [3.04, 2.70]
+color = "#6a5240"            # espresso oak panels
+color2 = "#57412f"
+joint_color = "#2a1d14"
+joint = 0.0
+roughness = 0.6
+note = "V3: espresso wood chevron panels behind the master bed (BM 2026 'Silhouette' espresso)"
+
+[finishes.apricot_watercolor]
+kind = "watercolor"
+size = [3.10, 2.70]
+color = "#f1e4d2"            # cream
+color2 = "#d79f78"           # apricot / terracotta washes
+joint_color = "#f1e4d2"
+joint = 0.0
+roughness = 0.9
+note = "V3: painted sunset mural on the kids' bed wall"
+
+# >>> style-variant finishes - generated by scripts/restyle/run.py, edit the style files instead
+
+# V2 - Sage & Oak
+[finishes.sageoak_ripple_sage]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#b8c2a8"
+color2 = "#8e9c80"
+joint_color = "#b8c2a8"
+joint = 0.0
+roughness = 0.85
+note = "V2: 'Ripple' wallpaper in a true mid sage (living sofa wall)"
+
+[finishes.sageoak_meadow]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f3ead0"
+color2 = "#93a878"
+joint_color = "#f3ead0"
+joint = 0.0
+roughness = 0.9
+note = "V2: butter-cream meadow mural with sage washes (kids' bed wall)"
+
+# V3 - Espresso & Terracotta
+[finishes.espresso_ripple_teal]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#4c7472"
+color2 = "#2f5355"
+joint_color = "#4c7472"
+joint = 0.0
+roughness = 0.85
+note = "V3: deep-teal 'Ripple' wallpaper behind the terracotta sofa (living)"
+
+[finishes.espresso_apricot_mural]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f1e0c8"
+color2 = "#c9794f"
+joint_color = "#f1e0c8"
+joint = 0.0
+roughness = 0.9
+note = "V3: cream mural with apricot / terracotta sunset washes (kids' bed wall)"
+
+# V4 - Contemporary
+[finishes.contemporary_grey_oak]
+kind = "parquet"
+size = [1.8, 0.22]
+direction = "x"
+color = "#a8977f"
+color2 = "#95856f"
+joint_color = "#5e5345"
+joint = 0.0015
+roughness = 0.42
+note = "V4: wide grey-washed oak plank (living, bedrooms)"
+
+[finishes.contemporary_concrete]
+kind = "stone"
+size = [1.2, 0.6]
+color = "#9a958d"
+color2 = "#87837c"
+joint_color = "#7e7a74"
+joint = 0.002
+roughness = 0.35
+note = "V4: light concrete-look porcelain 120 x 60 (hall, kitchen)"
+
+[finishes.contemporary_concrete_wall]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#a3a19c"
+color2 = "#8c8a85"
+joint_color = "#8a8883"
+joint = 0.002
+roughness = 0.35
+note = "V4: mid-grey concrete-look porcelain 60 x 120 vertical (bath 1 walls)"
+
+[finishes.contemporary_graphite_stone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#4c4d50"
+color2 = "#3c3d40"
+joint_color = "#38393b"
+joint = 0.002
+roughness = 0.35
+note = "V4: graphite stone-look porcelain 60 x 60 (bath floors)"
+
+[finishes.contemporary_statuario]
+kind = "marble"
+size = [1.8, 0.6]
+color = "#f2f1ee"
+color2 = "#8f9196"
+joint_color = "#e6e5e1"
+joint = 0.001
+roughness = 0.15
+note = "V4: white statuario-look slab with grey veins (kitchen backsplash)"
+
+[finishes.contemporary_statuario_wall]
+kind = "marble"
+size = [0.6, 1.2]
+color = "#eceae6"
+color2 = "#9a9ca0"
+joint_color = "#dcdad6"
+joint = 0.002
+roughness = 0.18
+note = "V4: statuario-look porcelain 60 x 120 vertical (bath 2 walls + tub front)"
+
+[finishes.contemporary_anthracite]
+kind = "tiles"
+size = [0.6, 0.6]
+color = "#5b5c5e"
+color2 = "#47484a"
+joint_color = "#4a4b4d"
+joint = 0.003
+roughness = 0.6
+note = "V4: anthracite outdoor porcelain 60 x 60 (balcony)"
+
+[finishes.contemporary_ripple_dove]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#d9d7d3"
+color2 = "#a9a6a1"
+joint_color = "#d9d7d3"
+joint = 0.0
+roughness = 0.85
+note = "V4: Ripple wallpaper in dove grey (living sofa wall)"
+
+[finishes.contemporary_ripple_charcoal]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#56585d"
+color2 = "#3e4044"
+joint_color = "#56585d"
+joint = 0.0
+roughness = 0.85
+note = "V4: charcoal ripple wallpaper behind the master bed"
+
+[finishes.contemporary_coral_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f1ece6"
+color2 = "#e07a5f"
+joint_color = "#f1ece6"
+joint = 0.0
+roughness = 0.9
+note = "V4: soft-white mural with coral washes (kids bed wall)"
+
+# V5 - Modern Minimalism
+[finishes.minimal_concrete]
+kind = "stone"
+size = [1.2, 0.6]
+color = "#9d9a94"
+color2 = "#8c8983"
+joint_color = "#85827c"
+joint = 0.0015
+roughness = 0.4
+note = "V5: pale concrete / microcement-look porcelain 120 x 60"
+
+[finishes.minimal_grey_oak]
+kind = "parquet"
+size = [1.5, 0.22]
+direction = "x"
+color = "#bdb5aa"
+color2 = "#aaa296"
+joint_color = "#6e675e"
+joint = 0.0012
+roughness = 0.5
+note = "V5: grey-washed matt oak wide planks (bedrooms)"
+
+[finishes.minimal_graphite]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#4a4a4c"
+color2 = "#3c3c3e"
+joint_color = "#3a3a3c"
+joint = 0.0015
+roughness = 0.35
+note = "V5: graphite stone-look 60 x 120 (bath floors, tub front)"
+
+[finishes.minimal_white_stone]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#efefed"
+color2 = "#e0e0de"
+joint_color = "#dcdcda"
+joint = 0.0015
+roughness = 0.3
+note = "V5: matte chalk-white large-format 60 x 120 vertical (bath 1 walls)"
+
+[finishes.minimal_white_quartz]
+kind = "marble"
+size = [1.8, 0.6]
+color = "#f3f3f1"
+color2 = "#d4d4d4"
+joint_color = "#e6e6e4"
+joint = 0.001
+roughness = 0.2
+note = "V5: white quartz slab backsplash with faint grey veining"
+
+[finishes.minimal_ripple_grey]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#dddcd8"
+color2 = "#a9a8a4"
+joint_color = "#e9e9e7"
+joint = 0.0
+roughness = 0.85
+note = "V5: 'Ripple' in cool pale grey (living)"
+
+[finishes.minimal_ripple_graphite]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#4c4c4e"
+color2 = "#323234"
+joint_color = "#4c4c4e"
+joint = 0.0
+roughness = 0.85
+note = "V5: graphite ripple behind the master bed"
+
+[finishes.minimal_cloud_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f3f3f1"
+color2 = "#a9b4bd"
+joint_color = "#f3f3f1"
+joint = 0.0
+roughness = 0.9
+note = "V5: soft grey-blue cloud mural (kids' bed wall)"
+
+# V6 - Warm Minimalism
+[finishes.warmmin_natural_oak]
+kind = "parquet"
+size = [1.8, 0.22]
+direction = "x"
+color = "#c4a07a"
+color2 = "#b28d66"
+joint_color = "#6e5238"
+joint = 0.0015
+roughness = 0.5
+note = "V6: wide-plank natural white oak, matte oiled (living, bedrooms)"
+
+[finishes.warmmin_limestone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#c4ab82"
+color2 = "#ad9470"
+joint_color = "#b09874"
+joint = 0.002
+roughness = 0.45
+note = "V6: honed warm limestone 60 x 60 (hall, kitchen, baths, balcony)"
+
+[finishes.warmmin_limestone_slab]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#d6c3a4"
+color2 = "#bca684"
+joint_color = "#c4b090"
+joint = 0.0015
+roughness = 0.4
+note = "V6: honed limestone 60 x 120 vertical (bath 2 walls, kitchen backsplash)"
+
+[finishes.warmmin_tadelakt]
+kind = "stone"
+size = [1.2, 1.2]
+color = "#c9ae8f"
+color2 = "#b39472"
+joint_color = "#c1a687"
+joint = 0.0005
+roughness = 0.3
+note = "V6: sand-clay tadelakt / microcement-look plaster (bath 1 walls, tub front)"
+
+[finishes.warmmin_ripple_oat]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#dcc6a2"
+color2 = "#a8845a"
+joint_color = "#d4bb96"
+joint = 0.0
+roughness = 0.85
+note = "V6: Ripple wallpaper in oat / sand (living sofa wall)"
+
+[finishes.warmmin_ripple_camel]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#c4a07a"
+color2 = "#94704c"
+joint_color = "#c4a07a"
+joint = 0.0
+roughness = 0.85
+note = "V6: Ripple wallpaper in camel behind the master bed"
+
+[finishes.warmmin_dune_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f2e8da"
+color2 = "#d4a47c"
+joint_color = "#f2e8da"
+joint = 0.0
+roughness = 0.9
+note = "V6: soft apricot-sand dune watercolour mural (kids bed wall)"
+
+# V7 - Japandi
+[finishes.japandi_oak]
+kind = "parquet"
+size = [1.2, 0.19]
+direction = "x"
+color = "#b8956a"
+color2 = "#a6845c"
+joint_color = "#6e5638"
+joint = 0.0015
+roughness = 0.5
+note = "V7: natural matte white oak planks (living, bedrooms)"
+
+[finishes.japandi_stone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#8f8370"
+color2 = "#786b58"
+joint_color = "#8a857c"
+joint = 0.002
+roughness = 0.5
+note = "V7: honed warm-grey limestone-look 60 x 60 (hall, kitchen)"
+
+[finishes.japandi_slate]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#4c4946"
+color2 = "#3b3936"
+joint_color = "#2f2d2b"
+joint = 0.003
+roughness = 0.55
+note = "V7: charcoal slate-look 60 x 60 (bath floors, tub apron, balcony)"
+
+[finishes.japandi_washi_tile]
+kind = "stone"
+size = [0.1, 0.3]
+color = "#dcd2c0"
+color2 = "#c6b9a3"
+joint_color = "#bfb8ab"
+joint = 0.002
+roughness = 0.2
+note = "V7: handmade washi-white glazed 10 x 30, vertical stack (bath 1 walls)"
+
+[finishes.japandi_pietra]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#ad9c80"
+color2 = "#937f63"
+joint_color = "#a49d91"
+joint = 0.002
+roughness = 0.35
+note = "V7: pietra-grey stone-look 60 x 120 (bath 2 walls, kitchen backsplash)"
+
+[finishes.japandi_ripple_stone]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#cdbca0"
+color2 = "#8a785e"
+joint_color = "#c4b296"
+joint = 0.0
+roughness = 0.85
+note = "V7: Ripple wallpaper in stone grey (living sofa wall)"
+
+[finishes.japandi_charred_chevron]
+kind = "chevron"
+size = [3.04, 2.7]
+color = "#2e2926"
+color2 = "#3d3632"
+joint_color = "#141110"
+joint = 0.0
+roughness = 0.8
+note = "V7: shou-sugi-ban charred timber panelling behind the master bed"
+
+[finishes.japandi_ink_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#ece3d3"
+color2 = "#6f7a80"
+joint_color = "#efe9de"
+joint = 0.0
+roughness = 0.9
+note = "V7: sumi-e ink-wash misty mountains mural (kids bed wall)"
+
+# V8 - Organic Modern
+[finishes.organic_white_oak]
+kind = "parquet"
+size = [1.2, 0.19]
+direction = "x"
+color = "#b8936a"
+color2 = "#a37f57"
+joint_color = "#5e4630"
+joint = 0.0015
+roughness = 0.5
+note = "V8 Organic Modern: natural oiled white oak planks (living, bedrooms)"
+
+[finishes.organic_limestone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#ab9475"
+color2 = "#927b5e"
+joint_color = "#9c8769"
+joint = 0.002
+roughness = 0.5
+note = "V8 Organic Modern: honed warm limestone 60 x 60 (hall, kitchen, baths, balcony)"
+
+[finishes.organic_moss_tile]
+kind = "stone"
+size = [0.075, 0.3]
+color = "#6f7048"
+color2 = "#5c5d3a"
+joint_color = "#d8cfbf"
+joint = 0.002
+roughness = 0.15
+note = "V8 Organic Modern: glossy moss-olive handmade tile 7.5 x 30, vertical stack (bath 1 walls)"
+
+[finishes.organic_plaster_stone]
+kind = "stone"
+size = [1.2, 1.2]
+color = "#b89f80"
+color2 = "#9c8467"
+joint_color = "#b2a28b"
+joint = 0.001
+roughness = 0.55
+note = "V8 Organic Modern: mushroom microcement / plaster-look large slabs (bath 2 walls)"
+
+[finishes.organic_travertine_slab]
+kind = "marble"
+size = [1.8, 0.6]
+color = "#d6c3a4"
+color2 = "#ae9370"
+joint_color = "#cdb999"
+joint = 0.001
+roughness = 0.35
+note = "V8 Organic Modern: vein-cut honed travertine slab (kitchen backsplash, tub front)"
+
+[finishes.organic_ripple_clay]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#b98f6c"
+color2 = "#946a4c"
+joint_color = "#b98f6c"
+joint = 0.0
+roughness = 0.85
+note = "V8 Organic Modern: 'Ripple' wallpaper in raw clay / terracotta-mushroom (living)"
+
+[finishes.organic_oak_chevron]
+kind = "chevron"
+size = [3.04, 2.7]
+color = "#bf9b70"
+color2 = "#a8845b"
+joint_color = "#6b4f35"
+joint = 0.0
+roughness = 0.6
+note = "V8 Organic Modern: white-oak chevron panels behind the master bed"
+
+[finishes.organic_meadow_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f0e4d0"
+color2 = "#8f9163"
+joint_color = "#f0e4d0"
+joint = 0.0
+roughness = 0.9
+note = "V8 Organic Modern: cream + moss / ochre watercolour hills (kids' bed wall)"
+
+# V9 - Quiet Luxury
+[finishes.quietlux_greige_oak]
+kind = "parquet"
+size = [1.2, 0.19]
+direction = "x"
+color = "#a8896a"
+color2 = "#967759"
+joint_color = "#5a4430"
+joint = 0.0015
+roughness = 0.5
+note = "greige-washed (mushroom) wide French oak, matte oil"
+
+[finishes.quietlux_limestone]
+kind = "stone"
+size = [1.2, 0.6]
+color = "#cab394"
+color2 = "#b39c7e"
+joint_color = "#b8a284"
+joint = 0.002
+roughness = 0.45
+note = "honed warm-grey limestone, large format 60 x 120"
+
+[finishes.quietlux_mink_stone]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#9e8570"
+color2 = "#856d59"
+joint_color = "#8a725e"
+joint = 0.002
+roughness = 0.35
+note = "mink / taupe honed stone-look porcelain 60 x 120"
+
+[finishes.quietlux_taupe_marble]
+kind = "marble"
+size = [1.2, 0.6]
+color = "#cbb79b"
+color2 = "#7d6249"
+joint_color = "#bfaa8c"
+joint = 0.0015
+roughness = 0.2
+note = "warm ivory marble with soft taupe veins, satin polish"
+
+[finishes.quietlux_ripple_cashmere]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#a88c6e"
+color2 = "#7f6650"
+joint_color = "#a88c6e"
+joint = 0.0
+roughness = 0.85
+note = "cashmere-camel fluted ripple wall panel"
+
+[finishes.quietlux_ripple_mink]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#846c58"
+color2 = "#6a5444"
+joint_color = "#846c58"
+joint = 0.0
+roughness = 0.85
+note = "mink upholstered-look ripple bed wall"
+
+[finishes.quietlux_camel_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#efe8dd"
+color2 = "#c49a72"
+joint_color = "#efe8dd"
+joint = 0.0
+roughness = 0.9
+note = "ivory clouds with soft camel washes, kids room"
+
+# V10 - Modern Mediterranean
+[finishes.medit_bleached_oak]
+kind = "parquet"
+size = [1.8, 0.22]
+direction = "x"
+color = "#cfb68e"
+color2 = "#bea178"
+joint_color = "#8a7a62"
+joint = 0.0015
+roughness = 0.5
+note = "V10: sun-bleached / whitewashed oak, wide 180 x 22 planks"
+
+[finishes.medit_limestone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#dccdb0"
+color2 = "#c8b593"
+joint_color = "#cbbd9f"
+joint = 0.002
+roughness = 0.45
+note = "V10: honed warm limestone-look 60 x 60 (hall, kitchen, baths, balcony)"
+
+[finishes.medit_aegean_zellige]
+kind = "stone"
+size = [0.15, 0.15]
+color = "#3d6680"
+color2 = "#2e536b"
+joint_color = "#e8e1d3"
+joint = 0.002
+roughness = 0.12
+note = "V10: Aegean-blue zellige-look 15 x 15 (bath 1 walls)"
+
+[finishes.medit_cream_zellige]
+kind = "stone"
+size = [0.15, 0.15]
+color = "#ece2cc"
+color2 = "#d9cba9"
+joint_color = "#f2ece0"
+joint = 0.002
+roughness = 0.12
+note = "V10: cream zellige-look 15 x 15 (kitchen backsplash)"
+
+[finishes.medit_olive_zellige]
+kind = "stone"
+size = [0.15, 0.15]
+color = "#6e7046"
+color2 = "#5a5c36"
+joint_color = "#e6dfcf"
+joint = 0.002
+roughness = 0.12
+note = "V10: olive zellige-look 15 x 15 (bath 2 tub front)"
+
+[finishes.medit_lime_plaster]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#ddcba9"
+color2 = "#c8b28a"
+joint_color = "#d3c09e"
+joint = 0.001
+roughness = 0.55
+note = "V10: limewash / tadelakt-look warm white 60 x 120 (bath 2 walls)"
+
+[finishes.medit_ripple_olive]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#a8a472"
+color2 = "#82804c"
+joint_color = "#a8a472"
+joint = 0.0
+roughness = 0.85
+note = "V10: Ripple wallpaper in soft olive (living sofa wall)"
+
+[finishes.medit_ripple_aegean]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#44708d"
+color2 = "#335a74"
+joint_color = "#44708d"
+joint = 0.0
+roughness = 0.85
+note = "V10: Aegean-blue ripple wallpaper behind the master bed"
+
+[finishes.medit_lemon_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f4ecd6"
+color2 = "#dcb94f"
+joint_color = "#f4ecd6"
+joint = 0.0
+roughness = 0.9
+note = "V10: painted lemon-grove mural on the kids' bed wall"
+
+# V11 - Scandinavian
+[finishes.scandi_whitewash_pine]
+kind = "parquet"
+size = [1.8, 0.22]
+direction = "x"
+color = "#e6dac4"
+color2 = "#d6c7ab"
+joint_color = "#a89a82"
+joint = 0.0015
+roughness = 0.5
+note = "V11: white-washed pine / birch wide planks 180 x 22 (living, bedrooms)"
+
+[finishes.scandi_grey_tiles]
+kind = "tiles"
+size = [0.6, 0.6]
+color = "#d3d4d1"
+color2 = "#a3a5a4"
+joint_color = "#bcbdba"
+joint = 0.002
+roughness = 0.45
+note = "V11: soft-grey speckled porcelain 60 x 60 (hall, kitchen)"
+
+[finishes.scandi_grey_mosaic]
+kind = "tiles"
+size = [0.1, 0.1]
+color = "#a3a8ab"
+color2 = "#868b8f"
+joint_color = "#d2d4d4"
+joint = 0.002
+roughness = 0.4
+note = "V11: grey 10 x 10 mosaic with light grout (bath floors)"
+
+[finishes.scandi_subway_white]
+kind = "stone"
+size = [0.15, 0.075]
+color = "#f5f5f2"
+color2 = "#e6e7e4"
+joint_color = "#b9bcbe"
+joint = 0.002
+roughness = 0.15
+note = "V11: glossy white subway 15 x 7.5, grey grout (bath 1, backsplash, tub)"
+
+[finishes.scandi_subway_blue]
+kind = "stone"
+size = [0.15, 0.075]
+color = "#9cb2c3"
+color2 = "#889fb2"
+joint_color = "#e6e8e8"
+joint = 0.002
+roughness = 0.15
+note = "V11: dusty Nordic-blue glazed subway 15 x 7.5, white grout (bath 2 walls)"
+
+[finishes.scandi_ripple_grey]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#eeeeec"
+color2 = "#b9c0c6"
+joint_color = "#eeeeec"
+joint = 0.0
+roughness = 0.85
+note = "V11: Ripple wallpaper in white / cool blue-grey (living)"
+
+[finishes.scandi_ripple_blue]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#7f95a6"
+color2 = "#5f7689"
+joint_color = "#7f95a6"
+joint = 0.0
+roughness = 0.85
+note = "V11: dusty-blue ripple headboard wall (master suite)"
+
+[finishes.scandi_blush_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#f6f1ec"
+color2 = "#d39a93"
+joint_color = "#f6f1ec"
+joint = 0.0
+roughness = 0.9
+note = "V11: blush-pink watercolour clouds on the kids bed wall"
+
+[finishes.scandi_grey_deck]
+kind = "parquet"
+size = [1.2, 0.14]
+direction = "y"
+color = "#a9a59d"
+color2 = "#97938b"
+joint_color = "#4a4844"
+joint = 0.006
+roughness = 0.65
+note = "V11: weathered silver-grey deck boards (balcony)"
+
+# V12 - Wabi-Sabi
+[finishes.wabi_limewash_bone]
+kind = "stone"
+size = [3.0, 2.7]
+color = "#cfbb9f"
+color2 = "#b9a385"
+joint_color = "#cfbb9f"
+joint = 0.0
+roughness = 0.9
+note = "V12: bone-white limewash, soft clouding, seamless"
+
+[finishes.wabi_limewash_mushroom]
+kind = "stone"
+size = [3.0, 2.7]
+color = "#b39b80"
+color2 = "#9a826a"
+joint_color = "#b39b80"
+joint = 0.0
+roughness = 0.9
+note = "V12: mushroom limewash, clouded brush marks, seamless"
+
+[finishes.wabi_limewash_sand]
+kind = "stone"
+size = [3.0, 2.7]
+color = "#dcc4a6"
+color2 = "#c8ac8a"
+joint_color = "#dcc4a6"
+joint = 0.0
+roughness = 0.9
+note = "V12: warm sand limewash (kids room)"
+
+[finishes.wabi_tadelakt_clay]
+kind = "stone"
+size = [1.8, 2.7]
+color = "#a8846a"
+color2 = "#8f6e56"
+joint_color = "#a8846a"
+joint = 0.0
+roughness = 0.3
+note = "V12: clay tadelakt, burnished lime plaster (bath 1, tub front)"
+
+[finishes.wabi_tadelakt_ash]
+kind = "stone"
+size = [1.8, 2.7]
+color = "#c2ae98"
+color2 = "#a8937c"
+joint_color = "#c2ae98"
+joint = 0.0
+roughness = 0.3
+note = "V12: ash-greige tadelakt (bath 2)"
+
+[finishes.wabi_microcement]
+kind = "stone"
+size = [2.4, 2.4]
+color = "#958676"
+color2 = "#7d6f60"
+joint_color = "#958676"
+joint = 0.0
+roughness = 0.5
+note = "V12: warm ash microcement, trowel clouding, jointless"
+
+[finishes.wabi_aged_oak]
+kind = "parquet"
+size = [1.8, 0.24]
+direction = "x"
+color = "#9c876e"
+color2 = "#87725b"
+joint_color = "#4f4134"
+joint = 0.0015
+roughness = 0.6
+note = "V12: weathered grey-brown oak, wide 24 cm boards, oiled matte"
+
+[finishes.wabi_bleached_oak]
+kind = "parquet"
+size = [1.8, 0.24]
+direction = "x"
+color = "#c9b79c"
+color2 = "#b8a588"
+joint_color = "#7d6a54"
+joint = 0.0015
+roughness = 0.6
+note = "V12: bleached / soaped oak wide boards (kids room)"
+
+[finishes.wabi_weathered_stone]
+kind = "stone"
+size = [0.6, 0.6]
+color = "#b0a696"
+color2 = "#968c7d"
+joint_color = "#8f8679"
+joint = 0.003
+roughness = 0.7
+note = "V12: weathered limestone-look outdoor slabs (balcony)"
+
+[finishes.wabi_ripple_ash]
+kind = "ripple"
+size = [3.04, 2.7]
+color = "#cdbba4"
+color2 = "#a48e75"
+joint_color = "#cdbba4"
+joint = 0.0
+roughness = 0.9
+note = "V12: Ripple wallpaper in ash-mushroom (living)"
+
+[finishes.wabi_clay_plaster]
+kind = "stone"
+size = [3.04, 2.7]
+color = "#9c7b62"
+color2 = "#86664f"
+joint_color = "#9c7b62"
+joint = 0.0
+roughness = 0.9
+note = "V12: raw clay plaster feature wall behind the master bed"
+
+[finishes.wabi_meadow_wash]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#efe7da"
+color2 = "#c29484"
+joint_color = "#efe7da"
+joint = 0.0
+roughness = 0.9
+note = "V12: hand-painted dusty-rose / sand wash mural (kids bed wall)"
+
+[finishes.wabi_raw_plaster]
+kind = "stone"
+size = [1.8, 0.6]
+color = "#bba68a"
+color2 = "#a08b70"
+joint_color = "#bba68a"
+joint = 0.0
+roughness = 0.4
+note = "V12: sealed raw plaster backsplash, kitchen"
+
+# V13 - Modern Industrial
+[finishes.industrial_microcement]
+kind = "stone"
+size = [1.2, 1.2]
+color = "#7c766e"
+color2 = "#69635b"
+joint_color = "#5e5850"
+joint = 0.001
+roughness = 0.5
+note = "V13: warm-grey microcement-look large slabs 120 x 120 (hall, kitchen, baths, balcony)"
+
+[finishes.industrial_concrete_wall]
+kind = "stone"
+size = [1.2, 0.6]
+color = "#9a948a"
+color2 = "#827c72"
+joint_color = "#76706a"
+joint = 0.0015
+roughness = 0.55
+note = "V13: light raw-concrete-look slabs 120 x 60 (bath 1 walls)"
+
+[finishes.industrial_graphite_slab]
+kind = "stone"
+size = [0.6, 1.2]
+color = "#6a645c"
+color2 = "#55504a"
+joint_color = "#47423d"
+joint = 0.0015
+roughness = 0.45
+note = "V13: graphite concrete-look 60 x 120 vertical (bath 2 walls + tub front, master bed wall)"
+
+[finishes.industrial_brick]
+kind = "tiles"
+size = [0.25, 0.065]
+color = "#9a4a32"
+color2 = "#743523"
+joint_color = "#a69c8e"
+joint = 0.005
+roughness = 0.85
+note = "V13: exposed-brick-look slips 25 x 6.5 with pale mortar (living sofa wall, kitchen backsplash)"
+
+[finishes.industrial_reclaimed_oak]
+kind = "parquet"
+size = [1.5, 0.22]
+direction = "x"
+color = "#6f5a47"
+color2 = "#5b4838"
+joint_color = "#241b14"
+joint = 0.002
+roughness = 0.55
+note = "V13: smoked reclaimed oak wide planks (living, master suite)"
+
+[finishes.industrial_weathered_oak]
+kind = "parquet"
+size = [1.5, 0.22]
+direction = "x"
+color = "#a8927a"
+color2 = "#968069"
+joint_color = "#5a4a3b"
+joint = 0.0015
+roughness = 0.5
+note = "V13: lighter weathered grey oak (kids' room)"
+
+[finishes.industrial_blueprint_watercolor]
+kind = "watercolor"
+size = [3.1, 2.7]
+color = "#ebe6dc"
+color2 = "#4f6f88"
+joint_color = "#ebe6dc"
+joint = 0.0
+roughness = 0.85
+note = "V13: steel-blue watercolour sky mural on the kids' bed wall"
+
+# <<< style-variant finishes

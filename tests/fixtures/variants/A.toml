@@ -1,0 +1,35 @@
+[variant]
+key = "A"
+name = "Test A"
+wall_color = "#e8e4dc"
+
+[[items]]
+id = "A.sofa-living-1"
+type = "sofa"
+room = "living"
+size = [2.2, 0.95, 0.85]
+position = [3.6, 7.3]
+color = "#7a7f86"
+
+[[items]]
+id = "A.dining-table-kitchen-1"
+type = "dining-table"
+room = "kitchen"
+size = [1.4, 0.8, 0.75]
+position = [2.0, 5.2]
+
+[[items]]
+id = "A.bed-master-suite-1"
+type = "bed"
+room = "bedroom_2"
+size = [1.6, 2.1, 1.0]
+position = [1.5, 2.0]
+rotation = 270
+
+[[items]]
+id = "A.mirror-master-bathroom-1"
+type = "mirror"
+room = "bath_2"
+size = [0.8, 0.03, 0.9]
+position = [5.5, 0.27]
+elevation = 1.1

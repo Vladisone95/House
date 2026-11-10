@@ -1,0 +1,761 @@
+# =============================================================================
+#  PRICE CATALOGUE - what the owner pays ON TOP of the turnkey delivery (ADR 0011)
+#
+#  The apartment is delivered TURNKEY ("la cheie") by the developer: tiles, parquet, interior doors,
+#  white paint, sanitary ware, electrics, plumbing, underfloor heating, boiler, 1 AC unit and 2 heat
+#  recovery units are included ([turnkey] below, from the developer's finishing budget). The developer
+#  gives a budget per item; choosing something nicer costs only the DIFFERENCE. So this list prices:
+#    * upgrades over the developer's allowances (price - allowance, never below 0)
+#    * extras the turnkey delivery does not have (furniture, kitchen, stretch ceilings, lighting...)
+#  `uv run apartment prices --variant V1 --open`  or the "Price list" button in Blender
+#  -> docs/prices/<VARIANT>.html  (quantities are measured from apartment.toml + the variant).
+#
+#  Every price = [low, mid, high] in RON, INCLUDING VAT (21 %). Bucharest market, autumn 2026:
+#    low  = Dedeman / Hornbach / IKEA / Jysk ranges, melamine (PAL) carpentry
+#    mid  = typical Bucharest workshop / contractor, painted MDF, mid brands (Bosch, Grohe, Egger...)
+#    high = premium custom carpentry and brands (Villeroy & Boch, Miele, designer lighting)
+#  Calibrated 2026-10-04 (owner: first prices looked low) against brig.ro 2026 price guides:
+#  custom kitchen 1 500-2 800 / 2 800-4 000 / 5 000-10 000 lei per metre (bodies only).
+#  status: "estimated" = Claude's market estimate (not a quote). When the owner gets a real quote,
+#  put it in and set status = "quoted" on that entry (the page marks quoted lines).
+#
+#  Units of [items.*]:  pc = per piece | m = per metre of the piece's width |
+#    m2 = per m2 of front (width x height) | m2_floor = per m2 of footprint (width x depth)
+#  An item type is looked up whole, then without its leading words ("plush-corner-sofa" ->
+#  "corner-sofa" -> "sofa"). Types with no entry are listed as "not priced" on the page.
+# =============================================================================
+
+[meta]
+currency = "RON"
+eur_rate = 5.36           # RON per EUR (owner 2026-10-04)
+vat = 0.21                # already included in every price below
+waste = 0.10              # extra floor / wall covering bought for cuts and breakage
+contingency = 0.10        # reserve on the extra fit-out works (surprises, small extras)
+as_of = "2026-10"
+status = "estimated"
+
+# -----------------------------------------------------------------------------
+#  TURNKEY DELIVERY - the developer's finishing budget ("Buget de finisaje", Art. 1) + owner
+#  2026-10-04 (1 AC, 2 ventilation units). Allowances in lei incl. VAT, status "confirmed".
+# -----------------------------------------------------------------------------
+[turnkey]
+included = [
+    "Plaster, skim coat and white washable paint on all walls and ceilings",
+    "PVC windows with triple glazing, metal entrance door",
+    "Underfloor heating, electric boiler",
+    "Electrical installation with modular switches and sockets; all plumbing",
+    "Floor tiles (kitchen, bathrooms, hall), wall tiles (bathrooms), parquet (living, bedrooms) with skirting + underlay",
+    "Interior doors, bathroom sanitary ware, a towel-rail radiator in each bathroom",
+    "1 AC unit (refrigerant line, condensate drain and power prepared in the living room)",
+    "2 heat-recovery ventilation units on the exterior wall",
+]
+standard_tile_max = 0.60   # tiles 25x30 ... 60x60 are standard; bigger ones cost a laying surcharge
+note = "Kitchen wall tiles (backsplash) are not part of the standard delivery."
+
+# A room surface the developer finishes: we pay only (material - allowance) per m2; laying is included.
+[[turnkey.surface]]
+label = "floor tiles (gresie)"
+surface = "floor"
+rooms = ["kitchen", "bath_1", "bath_2", "hall"]
+allowance = 110
+
+[[turnkey.surface]]
+label = "parquet"
+surface = "floor"
+rooms = ["living", "bedroom_1", "bedroom_2"]
+allowance = 65    # developer budget 95 lei/m2, of which 30 lei accessories (skirting, underlay) - also included
+
+[[turnkey.surface]]
+label = "wall tiles (faianta)"
+surface = "walls"
+rooms = ["bath_1", "bath_2"]
+allowance = 110
+
+# Pieces the developer supplies: credit = min(price of the matching pieces, amount x pieces), per
+# room listed (or once for the whole apartment when `rooms` is empty).
+# Developer list "800 900 800 800 900 800 800 800 800 800" read in document order: door 800,
+# 3-room bath: bathtub 900, WC 800, basin set 800; service bath: shower 800, WC 800, basin set 800.
+[[turnkey.piece]]
+label = "bathtub + mixer"
+types = ["bathtub"]
+rooms = ["bath_2"]
+amount = 900
+
+[[turnkey.piece]]
+label = "shower tray + mixer"
+types = ["walk-in-shower", "shower"]
+rooms = ["bath_1"]
+amount = 800
+
+[[turnkey.piece]]
+label = "WC + cistern"
+types = ["toilet"]
+rooms = ["bath_1", "bath_2"]
+amount = 800
+
+[[turnkey.piece]]
+label = "washbasin + small cabinet + mixer"
+types = ["vessel-sink", "double-sink", "sink", "vanity", "vanity-frame"]
+rooms = ["bath_1", "bath_2"]
+amount = 800
+
+[[turnkey.piece]]
+label = "1 AC unit, installed"
+types = ["air-conditioner"]
+amount = 2800      # estimated value of the included standard split unit
+pieces = 1
+
+[[turnkey.piece]]
+label = "2 heat-recovery ventilation units"
+types = ["heat-recovery-vent"]
+amount = 1600      # estimated value of each included unit
+pieces = 2
+
+# -----------------------------------------------------------------------------
+#  SURFACE FINISHES - per m2: material (incl. adhesive / accessories) and laying. Looked up by
+#  finish name (apartment.toml [finishes.<name>]) first, then by its kind.
+# -----------------------------------------------------------------------------
+[finish.parquet]
+label = "Parquet (laminate / engineered oak / solid)"
+material = [75, 210, 440]
+labour = [50, 75, 120]
+
+[finish.deck]
+label = "Outdoor deck (WPC composite / hardwood)"
+material = [200, 350, 620]
+labour = [60, 90, 130]
+
+[finish.tiles]
+label = "Porcelain tiles 60 x 60"
+material = [75, 150, 310]
+labour = [75, 100, 150]
+
+[finish.outdoor_tiles]
+label = "Frost-proof outdoor porcelain 60 x 60"
+material = [90, 160, 310]
+labour = [75, 100, 150]
+
+[finish.stone]
+label = "Stone-look porcelain"
+material = [110, 210, 410]
+labour = [90, 125, 190]
+
+[finish.marble]
+label = "Marble-look porcelain 60 x 120 / slabs"
+material = [125, 250, 500]
+labour = [100, 140, 200]
+
+[finish.mural]
+label = "Wallpaper mural (printed to size, hung)"
+material = [150, 280, 500]
+labour = [40, 75, 120]
+
+[finish.watercolor]
+label = "Wallpaper mural (printed to size, hung)"
+material = [150, 280, 500]
+labour = [40, 75, 120]
+
+[finish.chevron]
+label = "Wallpaper mural (printed to size, hung)"
+material = [150, 280, 500]
+labour = [40, 75, 120]
+
+[finish.ripple]
+label = "Wallpaper mural (printed to size, hung)"
+material = [150, 280, 500]
+labour = [40, 75, 120]
+
+# -----------------------------------------------------------------------------
+#  EXTRA FIT-OUT WORKS - quantities are computed from the plan (see pricing.py)
+# -----------------------------------------------------------------------------
+[fitout.large_format]
+label = "Laying surcharge: tiles bigger than 60 x 60 on developer-tiled surfaces"
+unit = "m2"
+price = [40, 60, 100]
+
+[fitout.stretch_ceiling]
+label = "Stretch ceiling (PVC / fabric membrane)"
+unit = "m2"
+price = [120, 190, 320]
+
+[fitout.stretch_led]
+label = "Stretch ceiling: perimeter LED shadow-gap profile + strip + driver"
+unit = "m"
+price = [100, 170, 300]
+
+[fitout.interior_door]
+label = "Interior door upgrade (better leaf / frame / handle) over the developer's door"
+unit = "pc"
+price = [800, 2600, 5500]
+allowance = 800    # developer's door budget per piece
+
+[fitout.site]
+label = "Site costs for the extra works: protection, debris, transport, cleaning"
+unit = "lump"
+price = [600, 1200, 2500]
+
+# -----------------------------------------------------------------------------
+#  FURNITURE, APPLIANCES, SANITARY, LIGHTING, TEXTILES, DECOR - by furniture type
+#  category: kitchen | storage | furniture | appliances | bathroom | lighting | textiles | decor |
+#            personal (= the owner's own things: shown, not counted)
+# -----------------------------------------------------------------------------
+# ---- kitchen (custom units, per metre of run) ----
+[items.base-cabinet]
+category = "kitchen"
+label = "Kitchen base units (carcass + fronts + hardware)"
+unit = "m"
+price = [1250, 2500, 4900]
+
+[items.wall-cabinet]
+category = "kitchen"
+label = "Kitchen wall units"
+unit = "m"
+price = [850, 1700, 3500]
+
+[items.tall-cabinet]
+category = "kitchen"
+label = "Tall cabinets / columns (oven, fridge, pantry, bathroom)"
+unit = "m"
+price = [1700, 3500, 7000]
+
+[items.countertop]
+category = "kitchen"
+label = "Worktop (laminate / compact / quartz)"
+unit = "m"
+price = [450, 1200, 2800]
+
+[items.backsplash]
+category = "kitchen"
+label = "Backsplash (porcelain / sintered slab), fitted"
+unit = "m2"
+price = [350, 600, 1000]
+
+[items.plinth]
+category = "kitchen"
+label = "Plinth / filler panel"
+unit = "m"
+price = [80, 170, 350]
+
+[items.sink]
+category = "kitchen"
+label = "Sink + mixer tap"
+unit = "pc"
+price = [550, 1400, 3500]
+
+[items.double-sink]
+category = "bathroom"
+label = "Double washbasin + mixers"
+unit = "pc"
+price = [800, 1950, 5200]
+
+[items.vessel-sink]
+category = "bathroom"
+label = "Countertop (vessel) washbasin + mixer"
+unit = "pc"
+price = [500, 1300, 3200]
+
+# ---- storage & carpentry (custom, per m2 of front) ----
+[items.wardrobe]
+category = "storage"
+label = "Built-in wardrobe (custom carpentry, interior fittings)"
+unit = "m2"
+price = [600, 1200, 2450]
+
+[items.storage-cabinet]
+category = "storage"
+label = "Storage cabinet"
+unit = "m"
+price = [800, 1750, 3800]
+
+[items.vanity]
+category = "bathroom"
+label = "Bathroom vanity unit"
+unit = "m"
+price = [1050, 2350, 5200]
+
+[items.vanity-frame]
+category = "bathroom"
+label = "Vanity frame / shelf"
+unit = "pc"
+price = [650, 1550, 3200]
+
+[items.nightstand]
+category = "furniture"
+label = "Nightstand"
+unit = "pc"
+price = [260, 800, 1950]
+
+[items.tv-console]
+category = "furniture"
+label = "TV console"
+unit = "pc"
+price = [650, 1950, 5200]
+
+[items.wall-shelf]
+category = "storage"
+label = "Wall shelf"
+unit = "pc"
+price = [110, 350, 950]
+
+[items.wall-niche]
+category = "storage"
+label = "Recessed wall niche (drywall + LED)"
+unit = "pc"
+price = [550, 1200, 2450]
+
+[items.slat-panel]
+category = "storage"
+label = "Wooden slat wall panelling"
+unit = "m2"
+price = [350, 600, 1200]
+
+[items.slat-screen]
+category = "storage"
+label = "Wooden slat screen"
+unit = "m2"
+price = [350, 600, 1200]
+
+[items.portal-jamb]
+category = "storage"
+label = "Wooden doorway portal - jamb"
+unit = "pc"
+price = [400, 950, 2050]
+
+[items.portal-head]
+category = "storage"
+label = "Wooden doorway portal - head"
+unit = "pc"
+price = [400, 950, 2050]
+
+# ---- furniture ----
+[items.sofa]
+category = "furniture"
+label = "Sofa"
+unit = "pc"
+price = [2600, 5800, 15600]
+
+[items.corner-sofa]
+category = "furniture"
+label = "Corner sofa"
+unit = "pc"
+price = [3200, 7800, 19500]
+
+[items.armchair]
+category = "furniture"
+label = "Armchair"
+unit = "pc"
+price = [800, 2350, 5800]
+
+[items.chair]
+category = "furniture"
+label = "Chair"
+unit = "pc"
+price = [260, 650, 1950]
+
+[items.upholstered-chair]
+category = "furniture"
+label = "Upholstered dining chair"
+unit = "pc"
+price = [500, 1150, 2850]
+
+[items.gaming-chair]
+category = "furniture"
+label = "Gaming / office chair"
+unit = "pc"
+price = [800, 1550, 3200]
+
+[items.outdoor-chair]
+category = "furniture"
+label = "Outdoor chair"
+unit = "pc"
+price = [200, 500, 1300]
+
+[items.dining-table]
+category = "furniture"
+label = "Dining table"
+unit = "pc"
+price = [1050, 3200, 9100]
+
+[items.table]
+category = "furniture"
+label = "Table"
+unit = "pc"
+price = [650, 1950, 5200]
+
+[items.outdoor-dining-table]
+category = "furniture"
+label = "Outdoor table"
+unit = "pc"
+price = [650, 1550, 4600]
+
+[items.desk]
+category = "furniture"
+label = "Desk"
+unit = "pc"
+price = [650, 1550, 4600]
+
+[items.round-coffee-table]
+category = "furniture"
+label = "Coffee table"
+unit = "pc"
+price = [400, 1150, 3200]
+
+[items.round-side-table]
+category = "furniture"
+label = "Side table"
+unit = "pc"
+price = [200, 600, 1550]
+
+[items.bed]
+category = "furniture"
+label = "Bed frame + mattress"
+unit = "pc"
+price = [1950, 5200, 13000]
+
+[items.floating-bed]
+category = "furniture"
+label = "Floating bed (hidden base, LED) + mattress"
+unit = "pc"
+price = [3200, 7800, 18200]
+
+# ---- appliances ----
+[items.fridge]
+category = "appliances"
+label = "Fridge-freezer"
+unit = "pc"
+price = [2250, 4400, 10000]
+
+[items.glass-fridge]
+category = "appliances"
+label = "Glass-door fridge"
+unit = "pc"
+price = [3800, 7500, 17500]
+
+[items.oven]
+category = "appliances"
+label = "Built-in oven"
+unit = "pc"
+price = [1250, 2750, 6200]
+
+[items.cooktop]
+category = "appliances"
+label = "Induction hob"
+unit = "pc"
+price = [750, 2000, 5000]
+
+[items.cooker-hood]
+category = "appliances"
+label = "Cooker hood"
+unit = "pc"
+price = [500, 1500, 4400]
+
+[items.hood-visor]
+category = "appliances"
+label = "Integrated pull-out hood"
+unit = "pc"
+price = [600, 1600, 4400]
+
+[items.dishwasher]
+category = "appliances"
+label = "Dishwasher (integrated)"
+unit = "pc"
+price = [1600, 3100, 6200]
+
+[items.washing-machine]
+category = "appliances"
+label = "Washing machine"
+unit = "pc"
+price = [1600, 3100, 6200]
+
+[items.tv]
+category = "appliances"
+label = "TV"
+unit = "pc"
+price = [1900, 4400, 11200]
+
+[items.air-conditioner]
+category = "appliances"
+label = "Air conditioner (split, installed)"
+unit = "pc"
+price = [2750, 4400, 8100]
+
+[items.heat-recovery-vent]
+category = "appliances"
+label = "Heat-recovery wall ventilator (installed)"
+unit = "pc"
+price = [1500, 3100, 5600]
+
+# ---- bathroom ----
+[items.toilet]
+category = "bathroom"
+label = "WC (wall-hung + concealed frame, flush plate)"
+unit = "pc"
+price = [1150, 3200, 6500]
+
+[items.bathtub]
+category = "bathroom"
+label = "Bathtub + mixer"
+unit = "pc"
+price = [1150, 3200, 9100]
+
+[items.bath-screen]
+category = "bathroom"
+label = "Bath glass screen"
+unit = "pc"
+price = [500, 1300, 3200]
+
+[items.shower]
+category = "bathroom"
+label = "Shower (tray, enclosure, mixer)"
+unit = "pc"
+price = [1550, 3900, 9100]
+
+[items.walk-in-shower]
+category = "bathroom"
+label = "Walk-in shower (glass panel, linear drain)"
+unit = "pc"
+price = [1950, 4600, 10400]
+
+[items.shower-head]
+category = "bathroom"
+label = "Shower system (head + thermostatic mixer)"
+unit = "pc"
+price = [400, 1300, 3900]
+
+[items.mirror]
+category = "bathroom"
+label = "Mirror"
+unit = "pc"
+price = [200, 650, 1950]
+
+[items.backlit-mirror]
+category = "bathroom"
+label = "Backlit LED mirror"
+unit = "pc"
+price = [500, 1450, 3900]
+
+[items.toilet-paper-holder]
+category = "bathroom"
+label = "Toilet paper holder"
+unit = "pc"
+price = [50, 160, 500]
+
+[items.toilet-roll-stand]
+category = "bathroom"
+label = "Spare-roll stand"
+unit = "pc"
+price = [80, 230, 650]
+
+[items.toilet-brush]
+category = "bathroom"
+label = "Toilet brush"
+unit = "pc"
+price = [50, 160, 450]
+
+[items.towels]
+category = "textiles"
+label = "Towel set"
+unit = "pc"
+price = [130, 300, 800]
+
+# ---- lighting ----
+[items.recessed-spotlight]
+category = "lighting"
+label = "Recessed spotlight"
+unit = "pc"
+price = [50, 130, 300]
+
+[items.led-strip]
+category = "lighting"
+label = "LED strip + aluminium profile + driver"
+unit = "m"
+price = [50, 120, 260]
+
+[items.track-light]
+category = "lighting"
+label = "Track light system (track + spot heads)"
+unit = "pc"
+price = [650, 1550, 3900]
+
+[items.ceiling-light]
+category = "lighting"
+label = "Ceiling light"
+unit = "pc"
+price = [200, 600, 1950]
+
+[items.ring-ceiling-light]
+category = "lighting"
+label = "Ring ceiling light"
+unit = "pc"
+price = [400, 1150, 3200]
+
+[items.ring-pendant-light]
+category = "lighting"
+label = "Ring pendant"
+unit = "pc"
+price = [500, 1550, 4600]
+
+[items.linear-pendant-light]
+category = "lighting"
+label = "Linear pendant"
+unit = "pc"
+price = [500, 1450, 3900]
+
+[items.infinity-pendant-light]
+category = "lighting"
+label = "Infinity-ring pendant"
+unit = "pc"
+price = [650, 1950, 5200]
+
+[items.led-panel-light]
+category = "lighting"
+label = "LED panel"
+unit = "pc"
+price = [100, 260, 650]
+
+[items.table-lamp]
+category = "lighting"
+label = "Table lamp"
+unit = "pc"
+price = [130, 400, 1150]
+
+[items.floor-lamp]
+category = "lighting"
+label = "Floor lamp"
+unit = "pc"
+price = [260, 800, 2350]
+
+# ---- textiles ----
+[items.rug]
+category = "textiles"
+label = "Rug"
+unit = "m2_floor"
+price = [80, 260, 800]
+
+[items.doormat]
+category = "textiles"
+label = "Doormat"
+unit = "pc"
+price = [60, 160, 400]
+
+[items.drape]
+category = "textiles"
+label = "Curtain panel on ceiling track, floor length (made to measure; per panel - drawn stacked open)"
+unit = "pc"
+price = [400, 800, 1550]
+
+[items.sheer-curtain]
+category = "textiles"
+label = "Sheer curtain (made to measure)"
+unit = "m"
+price = [200, 400, 800]
+
+[items.venetian-blind]
+category = "textiles"
+label = "Venetian blind"
+unit = "m2"
+price = [130, 300, 800]
+
+[items.wallpaper]
+category = "decor"
+label = "Wallpaper mural (printed to size, hung)"
+unit = "m2"
+price = [180, 350, 600]
+
+# ---- decor ----
+[items.plant]
+category = "decor"
+label = "Plant + pot"
+unit = "pc"
+price = [60, 180, 500]
+
+[items.lemon-tree]
+category = "decor"
+label = "Lemon tree + pot"
+unit = "pc"
+price = [180, 400, 950]
+
+[items.bird-of-paradise]
+category = "decor"
+label = "Bird of paradise + pot"
+unit = "pc"
+price = [180, 500, 1100]
+
+[items.bonsai]
+category = "decor"
+label = "Bonsai"
+unit = "pc"
+price = [120, 300, 850]
+
+[items.vase]
+category = "decor"
+label = "Vase"
+unit = "pc"
+price = [60, 180, 600]
+
+# ---- the owner's own things: shown on the page, not counted ----
+[items.mug]
+category = "personal"
+label = "Mug"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.place-setting]
+category = "personal"
+label = "Tableware"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.serving-bowl]
+category = "personal"
+label = "Serving bowl"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.shoes]
+category = "personal"
+label = "Shoes"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.notebooks]
+category = "personal"
+label = "Notebooks"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.pencils]
+category = "personal"
+label = "Pencils"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.pencil-case]
+category = "personal"
+label = "Pencil case"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.monitor]
+category = "personal"
+label = "Monitor"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.keyboard]
+category = "personal"
+label = "Keyboard"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.mouse]
+category = "personal"
+label = "Mouse"
+unit = "pc"
+price = [0, 0, 0]
+
+[items.pc-tower]
+category = "personal"
+label = "PC"
+unit = "pc"
+price = [0, 0, 0]

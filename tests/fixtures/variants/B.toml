@@ -1,0 +1,10 @@
+[variant]
+key = "B"
+name = "Test B"
+
+[[items]]
+id = "B.corner-sofa-living-1"
+type = "corner-sofa"
+room = "living"
+size = [2.8, 1.6, 0.85]
+position = [3.6, 7.6]

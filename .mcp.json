@@ -1,11 +1,14 @@
 {
   "mcpServers": {
     "blender": {
-      "command": "C:\\Users\\Vladi\\.local\\bin\\uvx.exe",
-      "args": ["blender-mcp"],
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["blender-mcp==2.0.0"],
       "env": {
-        "BLENDER_PORT": "9876",
-        "DISABLE_TELEMETRY": "true"
+        "DISABLE_TELEMETRY": "true",
+        "BLENDER_MCP_DISABLE_TELEMETRY": "true",
+        "BLENDER_HOST": "localhost",
+        "BLENDER_PORT": "9876"
       }
     }
   }

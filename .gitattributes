@@ -1,5 +1,5 @@
-*.blend filter=lfs diff=lfs merge=lfs -text
-*.ifc filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
-*.exr filter=lfs diff=lfs merge=lfs -text
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.blend binary
+*.png binary
+*.jpg binary

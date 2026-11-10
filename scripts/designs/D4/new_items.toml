@@ -1,0 +1,577 @@
+# D4 new pieces (ids without the "D4." prefix - gen.py adds it). Colours: see gen.py palette.
+
+# ------------------------------------------------------------------ LIVING
+[[items]]
+id = "media-sideboard-living-1"
+type = "media-sideboard"
+room = "living"
+size = [2.4, 0.45, 0.55]
+position = [2.1, 6.992]
+elevation = 0.18
+color = "#a2683c"
+label = "Long low teak credenza on tapered walnut legs: 2 doors, 3 drawers, a mustard-lined open niche for media"
+[items.storage]
+plinth = 0
+handle_color = "#5b3b27"
+interior_color = "#d19a2a"
+[[items.storage.modules]]
+width = 0.6
+front = "door-left"
+finish = "wood"
+front_color = "#a2683c"
+interior = [{ kind = "shelf", z = 0.26 }]
+[[items.storage.modules]]
+width = 0.6
+front = "drawers"
+drawers = 3
+finish = "wood"
+front_color = "#a2683c"
+[[items.storage.modules]]
+width = 0.6
+front = "open"
+label = "media niche"
+interior = [{ kind = "shelf", z = 0.27 }]
+[[items.storage.modules]]
+width = 0.6
+front = "door-right"
+finish = "wood"
+front_color = "#a2683c"
+interior = [{ kind = "shelf", z = 0.26 }]
+
+[[items]]
+id = "tapered-leg-living-1"
+type = "tapered-leg"
+room = "living"
+size = [0.04, 0.04, 0.18]
+position = [1.0, 6.832]
+color = "#5b3b27"
+label = "Credenza leg"
+
+[[items]]
+id = "tapered-leg-living-2"
+type = "tapered-leg"
+room = "living"
+size = [0.04, 0.04, 0.18]
+position = [3.2, 6.832]
+color = "#5b3b27"
+label = "Credenza leg"
+
+[[items]]
+id = "tapered-leg-living-3"
+type = "tapered-leg"
+room = "living"
+size = [0.04, 0.04, 0.18]
+position = [1.0, 7.152]
+color = "#5b3b27"
+label = "Credenza leg"
+
+[[items]]
+id = "tapered-leg-living-4"
+type = "tapered-leg"
+room = "living"
+size = [0.04, 0.04, 0.18]
+position = [3.2, 7.152]
+color = "#5b3b27"
+label = "Credenza leg"
+
+[[items]]
+id = "sofa-living-1"
+type = "sofa"
+room = "living"
+size = [2.3, 0.92, 0.8]
+position = [2.1, 10.43]
+rotation = 180
+elevation = 0.1
+color = "#5f6233"
+label = "Olive velvet 3-seat sofa, low track arms, raised on teak legs"
+
+[[items]]
+id = "tapered-leg-living-5"
+type = "tapered-leg"
+room = "living"
+size = [0.045, 0.045, 0.1]
+position = [1.0, 10.03]
+color = "#a2683c"
+label = "Sofa leg"
+
+[[items]]
+id = "tapered-leg-living-6"
+type = "tapered-leg"
+room = "living"
+size = [0.045, 0.045, 0.1]
+position = [3.2, 10.03]
+color = "#a2683c"
+label = "Sofa leg"
+
+[[items]]
+id = "tapered-leg-living-7"
+type = "tapered-leg"
+room = "living"
+size = [0.045, 0.045, 0.1]
+position = [1.0, 10.83]
+color = "#a2683c"
+label = "Sofa leg"
+
+[[items]]
+id = "tapered-leg-living-8"
+type = "tapered-leg"
+room = "living"
+size = [0.045, 0.045, 0.1]
+position = [3.2, 10.83]
+color = "#a2683c"
+label = "Sofa leg"
+
+[[items]]
+id = "coffee-table-living-1"
+type = "coffee-table"
+room = "living"
+size = [1.2, 0.6, 0.4]
+position = [2.1, 9.22]
+color = "#a2683c"
+label = "Teak coffee table on slim legs, 45 cm from the sofa"
+
+[[items]]
+id = "notebooks-living-1"
+type = "notebooks"
+room = "living"
+size = [0.3, 0.24, 0.05]
+position = [1.78, 9.2]
+rotation = 8
+elevation = 0.4
+color = "#b4542a"
+label = "Art books"
+
+[[items]]
+id = "vase-living-1"
+type = "vase"
+room = "living"
+size = [0.12, 0.12, 0.22]
+position = [2.45, 9.24]
+elevation = 0.4
+color = "#d19a2a"
+label = "Mustard ceramic bud vase"
+
+[[items]]
+id = "rug-living-1"
+type = "rug"
+room = "living"
+size = [3.0, 2.2, 0.01]
+position = [2.1, 9.0]
+color = "#d8c6a4"
+label = "Graphic rug: oat wool field..."
+
+[[items]]
+id = "rug-living-2"
+type = "rug"
+room = "living"
+size = [3.0, 0.22, 0.012]
+position = [2.1, 8.22]
+color = "#b4542a"
+label = "...with a burnt-orange band"
+
+[[items]]
+id = "rug-living-3"
+type = "rug"
+room = "living"
+size = [3.0, 0.1, 0.013]
+position = [2.1, 8.43]
+color = "#d19a2a"
+label = "...a mustard stripe"
+
+[[items]]
+id = "rug-living-4"
+type = "rug"
+room = "living"
+size = [3.0, 0.06, 0.014]
+position = [2.1, 8.57]
+color = "#1f5c60"
+label = "...and a thin teal line"
+
+[[items]]
+id = "tub-armchair-living-1"
+type = "tub-armchair"
+room = "living"
+size = [0.86, 0.86, 0.78]
+position = [3.9, 10.05]
+rotation = 160
+color = "#8b4a22"
+label = "The lounge-chair corner: cognac leather lounge chair, turned to the sofa / TV, evening sun from W1"
+
+[[items]]
+id = "ottoman-living-1"
+type = "ottoman"
+room = "living"
+size = [0.56, 0.44, 0.4]
+position = [3.62, 9.22]
+rotation = 160
+color = "#8b4a22"
+label = "Matching cognac ottoman (5th seat for guests)"
+
+[[items]]
+id = "arc-floor-lamp-living-1"
+type = "arc-floor-lamp"
+room = "living"
+size = [0.3, 0.3, 1.65]
+position = [4.42, 10.53]
+color = "#d19a2a"
+label = "Brass floor lamp with a mustard shade - reading light for the lounge chair"
+
+[[items]]
+id = "round-side-table-living-1"
+type = "round-side-table"
+room = "living"
+size = [0.45, 0.45, 0.5]
+position = [0.7, 10.45]
+color = "#a2683c"
+label = "Teak pedestal side table"
+
+[[items]]
+id = "table-lamp-living-1"
+type = "table-lamp"
+room = "living"
+size = [0.3, 0.3, 0.42]
+position = [0.7, 10.45]
+elevation = 0.5
+color = "#efe4cf"
+label = "Opal mushroom lamp - sofa reading light"
+
+[[items]]
+id = "dome-pendant-light-living-1"
+type = "dome-pendant-light"
+room = "living"
+size = [0.55, 0.55, 0.8]
+position = [2.1, 9.22]
+elevation = 1.9
+color = "#d19a2a"
+label = "Statement mustard enamel dome pendant over the coffee table"
+[items.light]
+kind = "point"
+watts = 45
+color = "#ffd29e"
+size = 0.1
+
+[[items]]
+id = "desk-living-1"
+type = "desk"
+room = "living"
+size = [1.5, 0.75, 0.75]
+position = [6.425, 10.1]
+rotation = 90
+color = "#a2683c"
+label = "Teak writing desk 150 x 75 on slim legs, window to the side (no screen glare from W1)"
+
+[[items]]
+id = "table-lamp-living-2"
+type = "table-lamp"
+room = "living"
+size = [0.22, 0.22, 0.45]
+position = [6.6, 10.62]
+elevation = 0.75
+color = "#2c2a28"
+label = "Matte black desk lamp (task)"
+
+[[items]]
+id = "wall-bookcase-living-1"
+type = "wall-bookcase"
+room = "living"
+size = [2.4, 0.4, 2.1]
+position = [6.6, 8.05]
+rotation = 90
+color = "#a2683c"
+label = "Teak wall unit: paperwork drawers + cupboards, a mustard-lined lit niche, closed top cupboards"
+[items.storage]
+handle_color = "#5b3b27"
+interior_color = "#d19a2a"
+[[items.storage.modules]]
+width = 0.6
+fronts = [{ kind = "door-left" }, { kind = "open", height = 0.42 }, { kind = "door-left", height = 0.72 }]
+finish = "wood"
+front_color = "#a2683c"
+interior = [{ kind = "shelf", z = 0.42 }]
+[[items.storage.modules]]
+width = 0.6
+fronts = [{ kind = "door-right" }, { kind = "open", height = 0.42 }, { kind = "drawers", height = 0.72, count = 2 }]
+finish = "wood"
+front_color = "#a2683c"
+label = "paperwork drawers"
+[[items.storage.modules]]
+width = 0.6
+fronts = [{ kind = "door-left" }, { kind = "open", height = 0.42 }, { kind = "drawers", height = 0.72, count = 2 }]
+finish = "wood"
+front_color = "#a2683c"
+label = "paperwork drawers"
+[[items.storage.modules]]
+width = 0.6
+fronts = [{ kind = "door-right" }, { kind = "open", height = 0.42 }, { kind = "door-right", height = 0.72 }]
+finish = "wood"
+front_color = "#a2683c"
+interior = [{ kind = "shelf", z = 0.42 }]
+
+[[items]]
+id = "led-strip-living-3"
+type = "led-strip"
+room = "living"
+size = [2.3, 0.02, 0.01]
+position = [6.44, 8.05]
+rotation = 90
+elevation = 1.2
+color = "#c9c9c9"
+label = "LED in the wall-unit niche (accent)"
+[items.light]
+kind = "rect"
+watts = 12
+color = "#ffd29e"
+size = 2.3
+
+[[items]]
+id = "table-lamp-living-3"
+type = "table-lamp"
+room = "living"
+size = [0.3, 0.3, 0.4]
+position = [1.15, 6.99]
+elevation = 0.73
+color = "#efe4cf"
+label = "Opal mushroom lamp on the credenza (accent)"
+
+[[items]]
+id = "vase-living-2"
+type = "vase"
+room = "living"
+size = [0.14, 0.14, 0.3]
+position = [3.05, 7.0]
+elevation = 0.73
+color = "#b4542a"
+label = "Burnt-orange vase"
+
+[[items]]
+id = "plant-living-1"
+type = "plant"
+room = "living"
+size = [0.26, 0.26, 0.36]
+position = [2.82, 7.0]
+elevation = 0.73
+color = "#4f7a35"
+label = "Trailing plant on the credenza"
+
+# ------------------------------------------------------------------ KITCHEN
+[[items]]
+id = "round-dining-table-kitchen-1"
+type = "round-dining-table"
+room = "kitchen"
+size = [1.6, 0.9, 0.75]
+position = [2.4, 4.37]
+color = "#a2683c"
+label = "Oval teak tulip table 160 x 90 on a pedestal: 4 daily, 6 pulled from the wall"
+
+[[items]]
+id = "dome-pendant-light-kitchen-1"
+type = "dome-pendant-light"
+room = "kitchen"
+size = [0.36, 0.36, 1.15]
+position = [2.0, 4.42]
+elevation = 1.55
+color = "#1f5c60"
+label = "Teal enamel dome pendant over the table"
+[items.light]
+kind = "point"
+watts = 30
+color = "#ffd29e"
+size = 0.08
+
+[[items]]
+id = "dome-pendant-light-kitchen-2"
+type = "dome-pendant-light"
+room = "kitchen"
+size = [0.36, 0.36, 1.15]
+position = [2.8, 4.42]
+elevation = 1.55
+color = "#1f5c60"
+label = "Teal enamel dome pendant over the table"
+[items.light]
+kind = "point"
+watts = 30
+color = "#ffd29e"
+size = 0.08
+shadow = false
+
+# ------------------------------------------------------------------ HALL
+[[items]]
+id = "wardrobe-hall-2"
+type = "wardrobe"
+room = "hall"
+size = [1.05, 0.45, 2.45]
+position = [5.05, 5.925]
+rotation = 270
+color = "#5f6233"
+label = "Olive coat + shoe cupboard 105 cm: coat rail, 3 tilt-out shoe flaps, teak bar handles"
+[items.storage]
+handle_color = "#a2683c"
+handle_length = 0.5
+interior_color = "#e9e1d2"
+[[items.storage.modules]]
+width = 0.55
+front = "door-left"
+front_color = "#5f6233"
+label = "coats"
+interior = [{ kind = "rail", z = 1.75 }, { kind = "shelf", z = 1.95 }, { kind = "shelf", z = 0.35 }]
+[[items.storage.modules]]
+width = 0.5
+fronts = [{ kind = "door-right", height = 1.25 }, { kind = "flap" }, { kind = "flap" }, { kind = "flap" }]
+front_color = "#5f6233"
+label = "shoes"
+interior = [{ kind = "shelf", z = 1.5 }, { kind = "shelf", z = 1.85 }]
+
+[[items]]
+id = "bench-chest-hall-1"
+type = "bench-chest"
+room = "hall"
+size = [0.85, 0.38, 0.45]
+position = [6.61, 6.3]
+rotation = 90
+color = "#a2683c"
+label = "Teak bench with 2 drawers (keys, gloves) - sit to put shoes on"
+[items.storage]
+handle_color = "#5b3b27"
+[[items.storage.modules]]
+width = 0.85
+front = "drawers"
+drawers = 2
+finish = "wood"
+front_color = "#a2683c"
+
+[[items]]
+id = "seat-cushion-hall-1"
+type = "seat-cushion"
+room = "hall"
+size = [0.83, 0.36, 0.05]
+position = [6.61, 6.3]
+rotation = 90
+elevation = 0.45
+color = "#d19a2a"
+label = "Mustard bench cushion"
+
+[[items]]
+id = "backlit-mirror-hall-1"
+type = "backlit-mirror"
+room = "hall"
+size = [0.5, 0.02, 0.85]
+position = [6.79, 6.3]
+rotation = 90
+elevation = 1.05
+color = "#d9dde0"
+label = "Brass pill mirror with a warm halo over the bench"
+
+# ------------------------------------------------------------------ KIDS (bedroom_1)
+[[items]]
+id = "toy-bookcase-bedroom-1-1"
+type = "toy-bookcase"
+room = "bedroom_1"
+size = [0.85, 0.32, 0.62]
+position = [7.12, 9.07]
+rotation = 270
+color = "#a2683c"
+label = "Low teak toy unit at child height: open cubby (books) + 2 teal toy drawers"
+[items.storage]
+handle_color = "#d19a2a"
+interior_color = "#efe6d6"
+[[items.storage.modules]]
+width = 0.425
+front = "open"
+interior = [{ kind = "shelf", z = 0.3 }]
+[[items.storage.modules]]
+width = 0.425
+front = "drawers"
+drawers = 2
+front_color = "#3f7a7a"
+
+# ------------------------------------------------------------------ MASTER SUITE
+[[items]]
+id = "dresser-master-suite-1"
+type = "dresser"
+room = "bedroom_2"
+size = [1.6, 0.45, 0.66]
+position = [1.85, 3.535]
+rotation = 180
+elevation = 0.18
+color = "#a2683c"
+label = "Teak 6-drawer dresser on tapered legs under the TV"
+[items.storage]
+plinth = 0
+handle_color = "#5b3b27"
+[[items.storage.modules]]
+width = 0.8
+front = "drawers"
+drawers = 3
+finish = "wood"
+front_color = "#a2683c"
+[[items.storage.modules]]
+width = 0.8
+front = "drawers"
+drawers = 3
+finish = "wood"
+front_color = "#a2683c"
+
+[[items]]
+id = "tapered-leg-master-suite-1"
+type = "tapered-leg"
+room = "bedroom_2"
+size = [0.04, 0.04, 0.18]
+position = [1.13, 3.385]
+color = "#5b3b27"
+label = "Dresser leg"
+
+[[items]]
+id = "tapered-leg-master-suite-2"
+type = "tapered-leg"
+room = "bedroom_2"
+size = [0.04, 0.04, 0.18]
+position = [2.57, 3.385]
+color = "#5b3b27"
+label = "Dresser leg"
+
+[[items]]
+id = "tapered-leg-master-suite-3"
+type = "tapered-leg"
+room = "bedroom_2"
+size = [0.04, 0.04, 0.18]
+position = [1.13, 3.685]
+color = "#5b3b27"
+label = "Dresser leg"
+
+[[items]]
+id = "tapered-leg-master-suite-4"
+type = "tapered-leg"
+room = "bedroom_2"
+size = [0.04, 0.04, 0.18]
+position = [2.57, 3.685]
+color = "#5b3b27"
+label = "Dresser leg"
+
+[[items]]
+id = "plant-master-suite-1"
+type = "plant"
+room = "bedroom_2"
+size = [0.22, 0.22, 0.34]
+position = [2.45, 3.55]
+elevation = 0.84
+color = "#4f7a35"
+label = "Small plant on the dresser"
+
+[[items]]
+id = "bench-master-suite-1"
+type = "bench"
+room = "bedroom_2"
+size = [0.62, 0.38, 0.45]
+position = [4.57, 2.37]
+color = "#8b4a22"
+label = "Cognac leather dressing bench (sit to dress, beside the bath-2 door)"
+
+# ------------------------------------------------------------------ BALCONY
+[[items]]
+id = "plant-balcony-1"
+type = "plant"
+room = "balcony"
+size = [0.45, 0.45, 0.9]
+position = [-1.37, 6.99]
+color = "#4f7a35"
+label = "Olive bush in a pot"

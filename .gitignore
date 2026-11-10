@@ -1,25 +1,17 @@
-# Blender temp files
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Blender - generated artefacts (rebuild with: uv run apartment build)
+models/*.blend
 *.blend1
 *.blend2
-__pycache__/
-*.pyc
+renders/
 
-# Claude Code local files
-CLAUDE.local.md
+# Scratch / local
+.tmp/
 .claude/settings.local.json
-
-# Render temp files
-renders/**/*.exr
-renders/**/*.tmp
-
-# Bonsai/IFC temp
-drawings/cache/
-*.h5
-
-# OS files
-Thumbs.db
-.DS_Store
-desktop.ini
-
-# Keep empty directories via .gitkeep
-!.gitkeep
+*.log

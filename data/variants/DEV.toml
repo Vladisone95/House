@@ -1,0 +1,1092 @@
+# Furniture variant DEV - the real-estate developer's furnishing, recreated from their 3D render
+# (docs/reference/developer_plan_C3.jpg = viennaparkside.ro/apartamente/c3-scb-161/).
+# Schema and conventions: docs/decisions/0005-furniture-variants.md (+ 0006 storage, fixed points)
+#   id        = "<VARIANT>.<type>-<room-slug>-<n>"  (unique across all variants)
+#   size      = [width, depth, height] m      position = [x, y] centre of footprint (model metres)
+#   rotation  = degrees CCW, 0 = front faces +Y (facade A), 90 = -X, 180 = -Y, 270 = +X
+#   elevation = underside height (0 = on the floor)   color = "#rrggbb"   status = draft|approved
+#   storage pieces: optional [items.storage] + [[items.storage.modules]] (fronts, interior);
+#   modules are listed left -> right as seen standing in front of the piece.
+# Colours sampled from the render. Positions/sizes read off the render and fitted to our walls;
+# pieces the render does not show clearly carry a note (owner to confirm).
+
+[variant]
+key = "DEV"
+name = "Real estate developer schema"
+description = "The developer's furnishing from the sales render (1:1 as far as the image shows)"
+wall_color = "#f1efeb"
+
+# =============================================================================  LIVING
+[[items]]
+id = "DEV.corner-sofa-living-1"
+type = "corner-sofa"
+room = "living"
+size = [2.9, 1.75, 0.8]
+position = [2.73, 9.825]
+rotation = 180
+color = "#e5e4e2"
+mirror = true
+label = "White corner sofa, chaise towards the balcony"
+status = "draft"
+
+[[items]]
+id = "DEV.rug-living-1"
+type = "rug"
+room = "living"
+size = [3.6, 2.6, 0.01]
+position = [3.28, 8.687]
+color = "#7f7f7d"
+label = "Grey rug"
+status = "draft"
+
+[[items]]
+id = "DEV.round-coffee-table-living-1"
+type = "round-coffee-table"
+room = "living"
+size = [0.9, 0.9, 0.42]
+position = [3.38, 8.333]
+color = "#313233"
+status = "draft"
+
+[[items]]
+id = "DEV.round-side-table-living-1"
+type = "round-side-table"
+room = "living"
+size = [0.5, 0.5, 0.36]
+position = [2.63, 7.733]
+color = "#3a3b3d"
+status = "draft"
+
+[[items]]
+id = "DEV.armchair-living-1"
+type = "armchair"
+room = "living"
+size = [0.8, 0.8, 0.9]
+position = [4.88, 9.937]
+rotation = 128
+color = "#f4eeea"
+label = "White lounge chair"
+status = "draft"
+
+[[items]]
+id = "DEV.armchair-living-2"
+type = "armchair"
+room = "living"
+size = [0.8, 0.8, 0.9]
+position = [5.18, 8.637]
+rotation = 90
+color = "#f4eeea"
+label = "White lounge chair"
+status = "draft"
+
+[[items]]
+id = "DEV.plant-living-1"
+type = "plant"
+room = "living"
+size = [0.35, 0.35, 1.0]
+position = [4.38, 10.507]
+color = "#5b7a3a"
+status = "draft"
+
+[[items]]
+id = "DEV.wardrobe-living-1"
+type = "wardrobe"
+room = "living"
+size = [3.813, 0.6, 2.6]
+position = [6.715, 8.7935]
+rotation = 90
+color = "#f2f0ec"
+label = "Full-height wardrobe on the bedroom-1 wall: bronze glass + white doors"
+status = "draft"
+[items.storage]
+handle_color = "#c8a165"
+[[items.storage.modules]]
+width = 1.063
+front = "doors"
+finish = "glass"
+front_color = "#906c43"
+label = "window end"
+interior = []
+[[items.storage.modules]]
+width = 0.55
+front = "door-left"
+front_color = "#ebe6df"
+interior = []
+[[items.storage.modules]]
+width = 1.4
+front = "doors"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.8
+front = "door-right"
+front_color = "#ebe6df"
+label = "hall end"
+interior = []
+
+# =============================================================================  KITCHEN
+# One run on the living-room wall, left -> right: cooktop (+hood), drawers, oven, dishwasher
+# (M.S.V.), sink, fridge. No wall cabinets in the render.
+[[items]]
+id = "DEV.base-cabinet-kitchen-1"
+type = "base-cabinet"
+room = "kitchen"
+size = [1.5, 0.6, 0.87]
+position = [1.2, 5.945]
+rotation = 180
+color = "#e8e7e3"
+label = "Drawers under the cooktop + double door"
+status = "draft"
+[items.storage]
+handle_color = "#bdbdbd"
+[[items.storage.modules]]
+width = 0.6
+front = "drawers"
+drawers = 3
+interior = []
+[[items.storage.modules]]
+width = 0.9
+front = "doors"
+interior = []
+
+[[items]]
+id = "DEV.oven-kitchen-1"
+type = "oven"
+room = "kitchen"
+size = [0.6, 0.6, 0.87]
+position = [2.25, 5.945]
+rotation = 180
+color = "#e8e7e3"
+label = "Built-in oven under the worktop"
+note = "render shows the oven under the M.S.V. label - side by side with the dishwasher (owner 2026-10-04)"
+status = "draft"
+
+[[items]]
+id = "DEV.dishwasher-kitchen-1"
+type = "dishwasher"
+room = "kitchen"
+size = [0.6, 0.6, 0.87]
+position = [3.095, 5.945]
+rotation = 180
+color = "#e8e7e3"
+label = "Integrated dishwasher (M.S.V.)"
+status = "draft"
+
+[[items]]
+id = "DEV.base-cabinet-kitchen-2"
+type = "base-cabinet"
+room = "kitchen"
+size = [0.8, 0.6, 0.87]
+position = [3.795, 5.945]
+rotation = 180
+color = "#e8e7e3"
+label = "Sink cabinet"
+status = "draft"
+[items.storage]
+handle_color = "#bdbdbd"
+[[items.storage.modules]]
+width = 0.8
+front = "doors"
+interior = []
+
+[[items]]
+id = "DEV.countertop-kitchen-1"
+type = "countertop"
+room = "kitchen"
+size = [3.5, 0.62, 0.03]
+position = [2.2, 5.935]
+rotation = 180
+elevation = 0.87
+color = "#e2e1dd"
+status = "draft"
+
+[[items]]
+id = "DEV.cooktop-kitchen-1"
+type = "cooktop"
+room = "kitchen"
+size = [0.58, 0.51, 0.01]
+position = [0.75, 5.953]
+rotation = 180
+elevation = 0.9
+color = "#111111"
+label = "Induction cooktop"
+status = "draft"
+
+[[items]]
+id = "DEV.cooker-hood-kitchen-1"
+type = "cooker-hood"
+room = "kitchen"
+size = [0.6, 0.5, 1.15]
+position = [0.75, 5.995]
+rotation = 180
+elevation = 1.55
+color = "#d9d9d9"
+note = "not drawn in the developer render - placed on the forced hood vent"
+status = "draft"
+
+[[items]]
+id = "DEV.sink-kitchen-1"
+type = "sink"
+room = "kitchen"
+size = [0.8, 0.5, 0.04]
+position = [3.795, 5.963]
+rotation = 180
+elevation = 0.9
+color = "#c4c6c8"
+label = "Stainless sink with drainer"
+status = "draft"
+
+[[items]]
+id = "DEV.fridge-kitchen-1"
+type = "fridge"
+room = "kitchen"
+size = [0.6, 0.62, 2.0]
+position = [4.545, 5.935]
+rotation = 180
+color = "#f4f4f2"
+label = "Tall fridge column"
+status = "draft"
+
+[[items]]
+id = "DEV.dining-table-kitchen-1"
+type = "dining-table"
+room = "kitchen"
+size = [1.6, 0.9, 0.75]
+position = [2.4, 4.15]
+color = "#4a4a4c"
+note = "pushed against the bedroom-2 wall by the owner 2026-10-04 (chairs 3 and 4 removed)"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-kitchen-1"
+type = "chair"
+room = "kitchen"
+size = [0.45, 0.5, 0.85]
+position = [2, 4.85]
+rotation = 180
+color = "#415c61"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-kitchen-2"
+type = "chair"
+room = "kitchen"
+size = [0.45, 0.5, 0.85]
+position = [3.045, 4.85]
+rotation = 180
+color = "#415c61"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-kitchen-5"
+type = "chair"
+room = "kitchen"
+size = [0.45, 0.5, 0.85]
+position = [1.35, 4.15]
+rotation = 270
+color = "#415c61"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-kitchen-6"
+type = "chair"
+room = "kitchen"
+size = [0.45, 0.5, 0.85]
+position = [3.695, 4.15]
+rotation = 90
+color = "#415c61"
+status = "draft"
+
+[[items]]
+id = "DEV.plant-kitchen-1"
+type = "plant"
+room = "kitchen"
+size = [0.3, 0.3, 0.6]
+position = [4.695, 3.93]
+color = "#5b8a3a"
+status = "draft"
+
+# =============================================================================  HALL
+[[items]]
+id = "DEV.slat-panel-hall-1"
+type = "slat-panel"
+room = "hall"
+size = [0.32, 0.03, 2.7]
+position = [8.7, 4.35]
+rotation = 90
+color = "#8a5a3c"
+label = "Wooden slats by the entrance"
+note = "small slat panel by the entrance - kept by the owner 2026-10-04"
+status = "draft"
+
+# =============================================================================  BEDROOM 1
+[[items]]
+id = "DEV.slat-panel-bedroom-1-1"
+type = "slat-panel"
+room = "bedroom_1"
+size = [3.1, 0.03, 2.7]
+position = [10.55, 9.147]
+rotation = 90
+color = "#8a5a3c"
+label = "Wooden slat wall behind the bed"
+status = "draft"
+
+[[items]]
+id = "DEV.bed-bedroom-1-1"
+type = "bed"
+room = "bedroom_1"
+size = [1.6, 2.1, 1.1]
+position = [9.485, 9.187]
+rotation = 90
+color = "#5a504a"
+label = "Double bed, tall leather headboard"
+status = "draft"
+
+[[items]]
+id = "DEV.nightstand-bedroom-1-1"
+type = "nightstand"
+room = "bedroom_1"
+size = [0.45, 0.4, 0.5]
+position = [10.335, 10.262]
+rotation = 90
+color = "#ecebe8"
+status = "draft"
+
+[[items]]
+id = "DEV.rug-bedroom-1-1"
+type = "rug"
+room = "bedroom_1"
+size = [2.4, 1.9, 0.01]
+position = [9.095, 9.187]
+rotation = 90
+color = "#d8d8d8"
+status = "draft"
+
+[[items]]
+id = "DEV.wardrobe-bedroom-1-1"
+type = "wardrobe"
+room = "bedroom_1"
+size = [1.85, 0.6, 2.6]
+position = [9.64, 7.275]
+color = "#f2f0ec"
+label = "White wardrobe on the bathroom wall (3 x 60)"
+status = "draft"
+[items.storage]
+handle_color = "#c8c8c8"
+[[items.storage.modules]]
+width = 0.6
+front = "door-left"
+interior = []
+[[items.storage.modules]]
+width = 0.6
+front = "door-right"
+interior = []
+[[items.storage.modules]]
+width = 0.65
+front = "door-right"
+interior = []
+
+# =============================================================================  BATH 1
+[[items]]
+id = "DEV.washing-machine-bathroom-1-1"
+type = "washing-machine"
+room = "bath_1"
+size = [0.6, 0.6, 0.85]
+position = [9.14, 6.55]
+rotation = 180
+color = "#f4f4f4"
+label = "Washing machine (M.S.R.)"
+status = "draft"
+
+[[items]]
+id = "DEV.shower-bathroom-1-1"
+type = "shower"
+room = "bath_1"
+size = [1.1, 0.9, 2.1]
+position = [10.015, 6.4]
+rotation = 180
+color = "#eeeeee"
+label = "Walk-in shower, glass screen"
+status = "draft"
+
+[[items]]
+id = "DEV.vanity-bathroom-1-1"
+type = "vanity"
+room = "bath_1"
+size = [1.0, 0.5, 0.55]
+position = [10.315, 5.33]
+rotation = 90
+elevation = 0.3
+color = "#f0efeb"
+label = "Wall-hung vanity"
+status = "draft"
+[items.storage]
+handle_color = "#9a9a9a"
+[[items.storage.modules]]
+width = 1.0
+front = "drawers"
+drawers = 2
+interior = []
+
+[[items]]
+id = "DEV.countertop-bathroom-1-1"
+type = "countertop"
+room = "bath_1"
+size = [1.0, 0.5, 0.03]
+position = [10.315, 5.33]
+rotation = 90
+elevation = 0.85
+color = "#6b3f22"
+label = "Walnut top"
+status = "draft"
+
+[[items]]
+id = "DEV.double-sink-bathroom-1-1"
+type = "double-sink"
+room = "bath_1"
+size = [1.0, 0.42, 0.14]
+position = [10.325, 5.33]
+rotation = 90
+elevation = 0.88
+color = "#f6f6f6"
+label = "Two vessel basins"
+status = "draft"
+
+[[items]]
+id = "DEV.toilet-bathroom-1-1"
+type = "toilet"
+room = "bath_1"
+size = [0.38, 0.55, 1.1]
+position = [9.4, 4.455]
+color = "#f6f6f6"
+label = "Wall-hung WC on the corridor wall, facing the shower"
+note = "hidden in the developer render - position given by the owner 2026-10-04"
+status = "draft"
+
+# =============================================================================  BATH 2
+[[items]]
+id = "DEV.bathtub-master-bathroom-1"
+type = "bathtub"
+room = "bath_2"
+size = [1.725, 0.7, 0.55]
+position = [4.625, 1.1125]
+rotation = 270
+color = "#f6f6f6"
+label = "Bathtub along the wardrobe wall"
+status = "draft"
+
+[[items]]
+id = "DEV.toilet-master-bathroom-1"
+type = "toilet"
+room = "bath_2"
+size = [0.38, 0.55, 1.1]
+position = [6.675, 1.375]
+rotation = 90
+color = "#f6f6f6"
+label = "Wall-hung WC"
+status = "draft"
+
+[[items]]
+id = "DEV.vanity-master-bathroom-1"
+type = "vanity"
+room = "bath_2"
+size = [0.8, 0.46, 0.5]
+position = [5.9, 0.48]
+elevation = 0.35
+color = "#5e4438"
+label = "Wood vanity"
+status = "draft"
+[items.storage]
+handle_color = "#2a2a2a"
+[[items.storage.modules]]
+width = 0.8
+front = "drawers"
+drawers = 1
+interior = []
+
+[[items]]
+id = "DEV.sink-master-bathroom-1"
+type = "sink"
+room = "bath_2"
+size = [0.6, 0.4, 0.14]
+position = [5.9, 0.46]
+elevation = 0.85
+color = "#f6f6f6"
+label = "Rectangular vessel basin"
+status = "draft"
+
+# =============================================================================  MASTER SUITE
+[[items]]
+id = "DEV.bed-master-suite-1"
+type = "bed"
+room = "bedroom_2"
+size = [1.6, 2.1, 1.0]
+position = [1.75, 1.3]
+color = "#6f6a64"
+label = "Double bed, headboard on the neighbour wall"
+note = "moved to the middle of the wall by the owner 2026-10-04 - a nightstand on each side"
+status = "draft"
+
+[[items]]
+id = "DEV.nightstand-master-suite-1"
+type = "nightstand"
+room = "bedroom_2"
+size = [0.45, 0.4, 0.5]
+position = [0.675, 0.45]
+color = "#ecebe8"
+label = "Nightstand by the window"
+note = "owner 2026-10-04: one nightstand each side of the bed"
+status = "draft"
+
+[[items]]
+id = "DEV.nightstand-master-suite-2"
+type = "nightstand"
+room = "bedroom_2"
+size = [0.45, 0.4, 0.5]
+position = [2.861, 0.45]
+color = "#ecebe8"
+label = "Nightstand by the wardrobe"
+note = "owner 2026-10-04: one nightstand each side of the bed"
+status = "draft"
+
+[[items]]
+id = "DEV.rug-master-suite-1"
+type = "rug"
+room = "bedroom_2"
+size = [2.3, 2.4, 0.01]
+position = [1.75, 1.55]
+color = "#ddd1c0"
+status = "draft"
+
+[[items]]
+id = "DEV.tv-console-master-suite-1"
+type = "tv-console"
+room = "bedroom_2"
+size = [2.0, 0.4, 0.5]
+position = [1.75, 3.37]
+rotation = 180
+color = "#3a3532"
+label = "Low TV console"
+status = "draft"
+
+[[items]]
+id = "DEV.tv-master-suite-1"
+type = "tv"
+room = "bedroom_2"
+size = [1.4, 0.06, 0.85]
+position = [1.75, 3.4]
+rotation = 180
+elevation = 0.5
+color = "#111111"
+status = "draft"
+
+[[items]]
+id = "DEV.wardrobe-master-suite-1"
+type = "wardrobe"
+room = "bedroom_2"
+size = [1.955, 0.6, 2.6]
+position = [6.65, 3.0775]
+rotation = 90
+color = "#f2f0ec"
+label = "Dressing wardrobe on the corridor wall, bronze glass doors"
+status = "draft"
+[items.storage]
+handle_color = "#c8a165"
+[[items.storage.modules]]
+width = 0.54
+front = "door-left"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.533
+front = "door-right"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.534
+front = "door-right"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.348
+front = "door-right"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+
+[[items]]
+id = "DEV.wardrobe-master-suite-2"
+type = "wardrobe"
+room = "bedroom_2"
+size = [1.85, 0.6, 2.6]
+position = [3.85, 1.175]
+rotation = 90
+color = "#f2f0ec"
+label = "Wardrobe on the bathroom wall (3 x 60), bronze glass doors"
+status = "draft"
+[items.storage]
+handle_color = "#c8a165"
+[[items.storage.modules]]
+width = 0.65
+front = "door-left"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.6
+front = "door-right"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+[[items.storage.modules]]
+width = 0.6
+front = "door-right"
+finish = "glass"
+front_color = "#906c43"
+interior = []
+
+# =============================================================================  BALCONY
+[[items]]
+id = "DEV.table-balcony-1"
+type = "table"
+room = "balcony"
+size = [1.0, 0.6, 0.74]
+position = [-0.496, 8.25]
+rotation = 90
+color = "#6b4a2e"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-balcony-1"
+type = "chair"
+room = "balcony"
+size = [0.5, 0.5, 0.8]
+position = [-0.496, 9.113]
+rotation = 180
+color = "#222222"
+status = "draft"
+
+[[items]]
+id = "DEV.chair-balcony-2"
+type = "chair"
+room = "balcony"
+size = [0.5, 0.5, 0.8]
+position = [-0.496, 7.45]
+color = "#222222"
+status = "draft"
+
+[[items]]
+id = "DEV.plant-balcony-1"
+type = "plant"
+room = "balcony"
+size = [0.5, 0.5, 0.9]
+position = [-0.846, 10.337]
+color = "#4f7a35"
+status = "draft"
+
+# =============================================================================  LIGHTS
+# Not in the developer render - designed with the owner's brief (2026-10-04): modern LED, strips,
+# different types and sizes, the biggest in the living room. Warm white ~3000 K (2700-3000 K in
+# bedrooms/living, 4000 K-ish over worktops/vanities). Watts are Blender light power; defaults per
+# type in furniture.default_light(), overridden by [items.light]. 'Lights on' toggles all of them.
+# Retired ids (replaced by this scheme): ceiling-light-living-1/2, -kitchen-1, -hall-1/2,
+# -bathroom-1-1, -master-suite-1/2, -master-bathroom-1, pendant-light-kitchen-1.
+
+[[items]]
+id = "DEV.ring-pendant-light-living-1"
+type = "ring-pendant-light"
+room = "living"
+size = [1.0, 1.0, 0.75]
+position = [3.38, 8.333]
+elevation = 1.95
+color = "#1e1e1e"
+label = "Statement LED ring 100 cm over the coffee table"
+status = "draft"
+
+[[items]]
+id = "DEV.led-strip-living-1"
+type = "led-strip"
+room = "living"
+size = [3.7, 0.02, 0.01]
+position = [6.685, 8.762]
+rotation = 90
+elevation = 2.6
+color = "#c9c9c9"
+label = "Cove LED on the wardrobe top - washes the ceiling"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 45.0
+color = "#ffe2b8"
+size = 3.7
+aim = "up"
+
+[[items]]
+id = "DEV.led-strip-living-2"
+type = "led-strip"
+room = "living"
+size = [5.2, 0.03, 0.01]
+position = [3.6, 10.667]
+elevation = 2.69
+color = "#c9c9c9"
+label = "Recessed LED wall-washer along the window wall, over the sofa"
+status = "draft"
+
+[[items]]
+id = "DEV.floor-lamp-living-1"
+type = "floor-lamp"
+room = "living"
+size = [0.35, 0.35, 1.6]
+position = [1.1, 10.387]
+elevation = 0.0
+color = "#1e1e1e"
+label = "Reading floor lamp in the sofa corner"
+status = "draft"
+
+[[items]]
+id = "DEV.linear-pendant-light-kitchen-1"
+type = "linear-pendant-light"
+room = "kitchen"
+size = [1.3, 0.08, 1.1]
+position = [2.4, 4.15]
+elevation = 1.6
+color = "#1e1e1e"
+label = "Linear LED pendant over the dining table"
+status = "draft"
+
+[[items]]
+id = "DEV.led-strip-kitchen-1"
+type = "led-strip"
+room = "kitchen"
+size = [3.4, 0.03, 0.01]
+position = [2.2, 5.633]
+elevation = 2.69
+color = "#c9c9c9"
+label = "Recessed LED profile over the worktop"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 60.0
+color = "#fff0dc"
+size = 3.4
+
+[[items]]
+id = "DEV.recessed-spotlight-hall-1"
+type = "recessed-spotlight"
+room = "hall"
+size = [0.08, 0.08, 0.02]
+position = [6.045, 4.55]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight"
+status = "draft"
+
+[[items]]
+id = "DEV.recessed-spotlight-hall-2"
+type = "recessed-spotlight"
+room = "hall"
+size = [0.08, 0.08, 0.02]
+position = [6.045, 6.05]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight"
+status = "draft"
+
+[[items]]
+id = "DEV.recessed-spotlight-hall-3"
+type = "recessed-spotlight"
+room = "hall"
+size = [0.08, 0.08, 0.02]
+position = [7.315, 5.404]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight"
+status = "draft"
+
+[[items]]
+id = "DEV.recessed-spotlight-hall-4"
+type = "recessed-spotlight"
+room = "hall"
+size = [0.08, 0.08, 0.02]
+position = [8.345, 5.404]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight"
+status = "draft"
+
+[[items]]
+id = "DEV.led-strip-bedroom-1-1"
+type = "led-strip"
+room = "bedroom_1"
+size = [3.0, 0.02, 0.01]
+position = [10.51, 9.147]
+rotation = 90
+elevation = 2.69
+color = "#c9c9c9"
+label = "LED grazing the wooden slats behind the bed"
+status = "draft"
+
+[[items]]
+id = "DEV.table-lamp-bedroom-1-1"
+type = "table-lamp"
+room = "bedroom_1"
+size = [0.25, 0.25, 0.42]
+position = [10.335, 10.262]
+elevation = 0.5
+color = "#d8cfc2"
+label = "Bedside lamp on the nightstand"
+status = "draft"
+
+[[items]]
+id = "DEV.recessed-spotlight-bathroom-1-1"
+type = "recessed-spotlight"
+room = "bath_1"
+size = [0.08, 0.08, 0.02]
+position = [9.395, 4.96]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight (IP44)"
+status = "draft"
+[items.light]
+kind = "spot"
+watts = 30.0
+color = "#fff1e0"
+size = 0.02
+spot_angle = 70.0
+
+[[items]]
+id = "DEV.recessed-spotlight-bathroom-1-2"
+type = "recessed-spotlight"
+room = "bath_1"
+size = [0.08, 0.08, 0.02]
+position = [9.97, 6.369]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Shower downlight (IP65)"
+status = "draft"
+[items.light]
+kind = "spot"
+watts = 30.0
+color = "#fff1e0"
+size = 0.02
+spot_angle = 70.0
+
+[[items]]
+id = "DEV.led-strip-bathroom-1-1"
+type = "led-strip"
+room = "bath_1"
+size = [1.0, 0.03, 0.02]
+position = [10.52, 5.33]
+rotation = 90
+elevation = 1.95
+color = "#c9c9c9"
+label = "LED bar over the double vanity"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 20.0
+color = "#fff4e6"
+size = 1.0
+
+[[items]]
+id = "DEV.recessed-spotlight-master-bathroom-1"
+type = "recessed-spotlight"
+room = "bath_2"
+size = [0.08, 0.08, 0.02]
+position = [5.036, 1.1]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Downlight over the bathtub (IP65)"
+status = "draft"
+[items.light]
+kind = "spot"
+watts = 30.0
+color = "#fff1e0"
+size = 0.02
+spot_angle = 70.0
+
+[[items]]
+id = "DEV.recessed-spotlight-master-bathroom-2"
+type = "recessed-spotlight"
+room = "bath_2"
+size = [0.08, 0.08, 0.02]
+position = [6.3, 1.125]
+elevation = 2.68
+color = "#f2f2f0"
+label = "Recessed LED downlight (IP44)"
+status = "draft"
+[items.light]
+kind = "spot"
+watts = 30.0
+color = "#fff1e0"
+size = 0.02
+spot_angle = 70.0
+
+[[items]]
+id = "DEV.led-strip-master-bathroom-1"
+type = "led-strip"
+room = "bath_2"
+size = [0.8, 0.03, 0.02]
+position = [5.9, 0.28]
+elevation = 1.9
+color = "#c9c9c9"
+label = "LED bar over the vanity"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 16.0
+color = "#fff4e6"
+size = 0.8
+
+[[items]]
+id = "DEV.ring-ceiling-light-master-suite-1"
+type = "ring-ceiling-light"
+room = "bedroom_2"
+size = [0.6, 0.6, 0.05]
+position = [1.75, 1.825]
+elevation = 2.65
+color = "#f2f2f0"
+label = "Flush LED ring 60 cm"
+status = "draft"
+
+[[items]]
+id = "DEV.led-strip-master-suite-1"
+type = "led-strip"
+room = "bedroom_2"
+size = [1.85, 0.02, 0.01]
+position = [3.836, 1.175]
+rotation = 90
+elevation = 2.6
+color = "#c9c9c9"
+label = "Cove LED on the wardrobe top"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 25.0
+color = "#ffe2b8"
+size = 1.8
+aim = "up"
+
+[[items]]
+id = "DEV.led-strip-master-suite-2"
+type = "led-strip"
+room = "bedroom_2"
+size = [1.955, 0.02, 0.01]
+position = [6.62, 3.0775]
+rotation = 90
+elevation = 2.6
+color = "#c9c9c9"
+label = "Cove LED on the dressing wardrobe"
+status = "draft"
+[items.light]
+kind = "rect"
+watts = 22.0
+color = "#ffe2b8"
+size = 1.6
+aim = "up"
+
+[[items]]
+id = "DEV.ceiling-light-bedroom-1-1"
+type = "ceiling-light"
+room = "bedroom_1"
+size = [0.35, 0.35, 0.06]
+position = [8.995, 8.769]
+elevation = 2.64
+color = "#f2f2f0"
+label = "Flush LED panel"
+status = "draft"
+
+[[items]]
+id = "DEV.ceiling-light-balcony-1"
+type = "ceiling-light"
+room = "balcony"
+size = [0.35, 0.35, 0.06]
+position = [-0.35, 8.987]
+elevation = 2.64
+color = "#f2f2f0"
+label = "Under the balcony above"
+status = "draft"
+
+# --- bathrooms (owner 2026-10-04: more light + mirrors in front of the sinks)
+[[items]]
+id = "DEV.mirror-bathroom-1-1"
+type = "mirror"
+room = "bath_1"
+size = [0.95, 0.03, 0.8]
+position = [10.55, 5.33]
+rotation = 90
+elevation = 1.1
+color = "#d9dde0"
+label = "Mirror over the double sink (lit by the LED bar above)"
+status = "draft"
+
+[[items]]
+id = "DEV.led-panel-light-bathroom-1-1"
+type = "led-panel-light"
+room = "bath_1"
+size = [0.45, 0.45, 0.03]
+position = [9.645, 5.719]
+elevation = 2.67
+color = "#f2f2f0"
+label = "Square LED ceiling panel 45 x 45 (IP44)"
+status = "draft"
+[items.light]
+kind = "area"
+watts = 90.0
+color = "#fff4e6"
+size = 0.45
+
+[[items]]
+id = "DEV.mirror-master-bathroom-1"
+type = "mirror"
+room = "bath_2"
+size = [0.7, 0.03, 0.8]
+position = [5.9, 0.265]
+elevation = 1.05
+color = "#d9dde0"
+label = "Mirror over the basin (lit by the LED bar above)"
+status = "draft"
+
+[[items]]
+id = "DEV.led-panel-light-master-bathroom-1"
+type = "led-panel-light"
+room = "bath_2"
+size = [0.45, 0.45, 0.03]
+position = [5.7, 1.225]
+elevation = 2.67
+color = "#f2f2f0"
+label = "Square LED ceiling panel 45 x 45 (IP44)"
+status = "draft"
+[items.light]
+kind = "area"
+watts = 90.0
+color = "#fff4e6"
+size = 0.45
+
+[[items]]
+id = "DEV.table-lamp-master-suite-1"
+type = "table-lamp"
+room = "bedroom_2"
+size = [0.25, 0.25, 0.42]
+position = [0.675, 0.45]
+elevation = 0.5
+color = "#d8cfc2"
+label = "Bedside lamp on DEV.nightstand-master-suite-1"
+note = "owner 2026-10-04: one lamp per nightstand, on the Lights on switch"
+status = "draft"
+
+[[items]]
+id = "DEV.table-lamp-master-suite-2"
+type = "table-lamp"
+room = "bedroom_2"
+size = [0.25, 0.25, 0.42]
+position = [2.861, 0.45]
+elevation = 0.5
+color = "#d8cfc2"
+label = "Bedside lamp on DEV.nightstand-master-suite-2"
+note = "owner 2026-10-04: one lamp per nightstand, on the Lights on switch"
+status = "draft"
